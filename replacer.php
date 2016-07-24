@@ -7,9 +7,9 @@
 		header('Content-Type: text/html; charset=UTF-8');
 
 		// Leo los datos del formulario
-		$fecha = $_POST['fecha'];
-		$hora = $_POST['hora'];
-		$texto = $_POST['texto'];
+		$date = $_POST['date'];
+		$time = $_POST['time'];
+		$content = $_POST['content'];
 
 		// Abro el archivo HTML que voy a modificar
 		$my_file = 'index.php';
@@ -17,7 +17,7 @@
 		$data = fread($handle,filesize("index.php"));
 
 		// Agrego el post nuevo al código HTML de la página		
-		$data = preg_replace("/<replace><\/replace>/","<replace></replace>\n<h3 id=\"postdate\"><i>".$fecha."<br>".$hora."</i></h3>\n<p>".$texto."</p><br>", $data);
+		$data = preg_replace("/<replace><\/replace>/","<replace></replace>\n<h3 id=\"postdate\"><i>".$date."<br>".$time."</i></h3>\n<p>".$content."</p><br>", $data);
 		
 		// Reemplazo todos los tildes, signos de interrogación, exclamación y eñes por su código HTML para evitar que se pierdan.
 		$data = preg_replace("/¡/","&iexcl;", $data);

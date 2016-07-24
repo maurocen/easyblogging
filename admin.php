@@ -28,12 +28,12 @@
 	</script>
 </head>
 <body>
-	<div class="contenido">
+	<div class="content">
 		<form action="replacer.php" method="post" style="width:50%;margin:0 auto;">
-			<p>Fecha: <input type="text" name="fecha" autocomplete="false" required="true" /></p>
-			<p>Hora: <input type="text" name="hora" autocomplete="false" required="true"/></p>
-			<p>Texto: <textarea rows="8" cols="70" name="texto"></textarea></p>
-			<p>Contrase&ntilde;a: <input type="password" name="passwrd" autocomplete="false" required="true"/></p>
+			<p>Date: <input type="text" name="fecha" autocomplete="false" required="true" /></p>
+			<p>Time: <input type="text" name="hora" autocomplete="false" required="true"/></p>
+			<p>Content: <textarea rows="8" cols="70" name="texto"></textarea></p>
+			<p>Password: <input type="password" name="passwrd" autocomplete="false" required="true"/></p>
 			<p><input type="submit" value="Publicar"></p>
 		</form>
 	</div>
