@@ -5,6 +5,8 @@
 <body>
 	<?php 
 		header('Content-Type: text/html; charset=UTF-8');
+		
+		require_once('Spyc.php');
 
 		// Leo los datos del formulario
 		$date = $_POST['date'];
@@ -36,11 +38,14 @@
 		$data = preg_replace("/Ñ/","&Ntilde;", $data);
 
 		// Hasheo la contraseña que me pasan y leo la que está guardada
-		$salt = file_get_contents('salt.txt');
+		$database = Spyc::YAMLload("hash.yaml");
+		$user = $_POST['username'];
 		$pass = $_POST['passwrd'];
-		$pass = $salt.$pass;
-		$pass = hash('sha512', $pass);
-		$filepass = file_get_contents('hash.txt');
+		$salt = $database[$user]["salt"];
+		$pass = hash('sha512', $salt.$pass);
+		
+		$filepass = $database[$user]["hash"];
+		//$filepass = file_get_contents('hash.txt');
 		
 		// Verifico que la contraseña sea la que está almacenada
 		if ($pass == $filepass){
