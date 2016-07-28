@@ -8,22 +8,21 @@
 	<body>
 		<?php 
 			require_once("Spyc.php"); 
+			$installed = false;
 		?>
 		<div class="header"><h1 id="blogname"></h1></div>
 
 		<div class="content">
-<h2 id="motto"><i></i></h2>
-		<h2 id="motto"><i></i></h2>
-			<h2 id="motto"><i></i></h2>
 			<div class="posts">
 				<?php
-					$posts = Spyc::YAMLload("posts.yaml");
-					$posts = array_reverse($posts);
-					
-					foreach ($posts as $a) {
-						echo "<h2 id=\"postdate\"><i>".$a["date"]."<br>".$a["time"]."</i></h2><p>".$a["content"]."</p>";
+					if ($installed) {
+						$posts = Spyc::YAMLload("posts.yaml");
+						$posts = array_reverse($posts);
+						
+						foreach ($posts as $a) {
+							echo "<h2 id=\"postdate\"><i>".$a["date"]."<br>".$a["time"]."</i></h2><p>".$a["content"]."</p>";
+						}
 					}
-					$hashes = Spyc::YAMLload("hash.yaml");
 				?>
 			</div>
 		</div>
