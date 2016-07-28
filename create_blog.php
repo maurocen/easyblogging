@@ -22,15 +22,13 @@
 	$hfile = fopen("posts.yaml", 'w');
 	chmod("posts.yaml", 0640);
 	fwrite($hfile, "---");
-	
-	/*$hfile = fopen("salt.txt", 'w');
-	fwrite($hfile, $salt);
-	chmod("salt.txt", 0640);*/
+
 	$hfile = fopen("index.php", 'r');
 	$data = fread($hfile,filesize("index.php"));
 	$data = preg_replace("/<title><\/title>/", "<title>".$bname."</title>", $data);
-	$data = preg_replace("/<div class=\"header\"><\/div>/", "<div class=\"header\"><h1 id=\"blogname\">".$bname."</h1></div>", $data);
+	$data = preg_replace("/<div class=\"header\"><h1 id=\"blogname\">/", "<div class=\"header\"><h1 id=\"blogname\">".$bname, $data);
 	$data = preg_replace("/<div class=\"content\">/", "<div class=\"content\">\n<h2 id=\"motto\"><i>".$bmotto."</i></h2>", $data);
+	$data = preg_replace("/installed = false;/", "installed = true;", $data);
 	$hfile = fopen("index.php", 'w');
 	fwrite($hfile, $data);
 	/*unlink('install.php');*/
