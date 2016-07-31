@@ -4,6 +4,7 @@
 </head>
 <body>
 	<?php 
+		session_start();
 		header('Content-Type: text/html; charset=UTF-8');
 		
 		require_once("Spyc.php");

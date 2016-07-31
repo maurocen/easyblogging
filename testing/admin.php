@@ -29,26 +29,39 @@
 </head>
 <body>
 	<div class="content">
-		<form action="add_post.php" method="POST">
-			<h1>Add post</h1>
-			<hr>
-			<p>Date: <input type="date" name="date" autocomplete="false" required="true"/></p>
-			<p>Time: <input type="time" name="time" autocomplete="false" required="true"/></p>
-			<p>Content: <textarea rows="8" cols="70" name="content" autocomplete="false"></textarea></p>
-			<p>User: <input type="text" name="username" autocomplete="false" required="true"/></p>
-			<p>Password: <input type="password" name="passwrd" autocomplete="false" required="true"/></p>
-			
-			<p><input type="submit" value="Add post"></p>
-		</form>
-		<form action="add_user.php" method="POST">
-			<h1>Add a new user</h1>
-			<hr>
-			<p>Admin user: <input type="text" name="u_Admin" autocomplete="false" required="true" /></p>
-			<p>Admin pass: <input type="password" name="p_Admin" autocomplete="false" required="true"/></p>
-			<p>New user: <input type="text" name="u_New" autocomplete="false" required="true" /></p>
-			<p>New pass: <input type="password" name="p_New" autocomplete="false" required="true"/></p>
-			<p><input type="submit" value="Add user"></p>
-		</form>
+		<?php
+			session_start();
+			echo $_SESSION['name'];
+			if (isset($_SESSION['name'])) {
+				echo "
+				<form action=\"logout.php\" method=\"POST\" class='logbox'>
+					<p align=\"center\"><input type=\"submit\" value=\"Logout\"></p>
+				</form>
+				<form action=\"add_post.php\" method=\"POST\">
+					<h1>Add post</h1>
+					<hr>
+					<p>Date: <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
+					<p>Time: <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
+					<p>Content: <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
+					<p>User: <input type=\"text\" name=\"username\" autocomplete=\"false\" required=\"true\"/></p>
+					<p>Password: <input type=\"password\" name=\"passwrd\" autocomplete=\"false\" required=\"true\"/></p>
+					
+					<p><input type=\"submit\" value=\"Add post\"></p>
+				</form>
+				<form action=\"add_user.php\" method=\"POST\">
+					<h1>Add a new user</h1>
+					<hr>
+					<p>Admin user: <input type=\"text\" name=\"u_Admin\" autocomplete=\"false\" required=\"true\" /></p>
+					<p>Admin pass: <input type=\"password\" name=\"p_Admin\" autocomplete=\"false\" required=\"true\"/></p>
+					<p>New user: <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
+					<p>New pass: <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
+					<p><input type=\"submit\" value=\"Add user\"></p>
+				</form>";
+			} 
+			else {
+				echo "<form action=\"login.php\" method=\"post\">\n<p>User: <input type=\"text\" name=\"u_name\"> Password: <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"Login\"></p>	</form>";
+			}
+		?>
 	</div>
 </body>
 </html>

@@ -31,7 +31,7 @@
 	$data = preg_replace("/installed = false;/", "installed = true;", $data);
 	$hfile = fopen("index.php", 'w');
 	fwrite($hfile, $data);
-	/*unlink('install.php');*/
+	unlink('install.php');
 	echo 'Done.';
 	sleep('5');
 	header('Location: index.php');
