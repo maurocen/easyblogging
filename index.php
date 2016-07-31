@@ -8,7 +8,7 @@
 	<body>
 		<?php 
 			require_once("Spyc.php"); 
-			$installed = true;
+			$installed = false;
 			$posts = Spyc::YAMLload("posts.yaml");
 			$posts = array_reverse($posts);
 		?>
@@ -31,7 +31,6 @@
 			<div class="posts">
 				<?php
 					if ($installed) {
-						
 						foreach ($posts as $a) {
 							echo "<h2 id=\"postdate\"><i>".$a["date"]."<br>".$a["time"]."</i></h2><p>".$a["content"]."</p>";
 						}
