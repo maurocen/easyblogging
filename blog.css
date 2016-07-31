@@ -24,10 +24,26 @@ h1 {
 	margin: 10px auto;
 	width: 100%;
 	height: 40px;
+	padding: 5px;
 	background: #fff;
 	line-height: 40px;
 	text-align: center;
 }
+
+.logbox {
+	margin: 0 auto;
+	border: 0px;
+	background: #fff;
+	padding: 3px;
+	width: 100%;
+}
+
+.logbox form {
+	border: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
 .content {
 	background: #fff;
 	width: 80%;
