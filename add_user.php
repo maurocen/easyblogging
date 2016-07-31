@@ -11,8 +11,10 @@
 		require_once("salt.php");
 		
 		$database = Spyc::YAMLload("hash.yaml");
+		
+		$from_form = $_POST['from_form'];
 
-		if (isset($_SESSION['name']) && ($u_New!=null) && (p_New!=null)) {
+		if (isset($_SESSION['name']) && ($u_New!=null) && (p_New!=null) && $from_form) {
 			$u_New = $_POST['u_New'];
 			$p_New = $_POST['p_New'];	
 			

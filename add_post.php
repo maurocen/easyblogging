@@ -12,8 +12,9 @@
 		$d = $_POST['date'];
 		$t = $_POST['time'];
 		$c = $_POST['content'];
+		$from_form = $_POST['from_form'];
 
-		if (isset($_SESSION['name']) && ($d != null) && ($t != null) && ($c != null)){
+		if (isset($_SESSION['name']) && ($d != null) && ($t != null) && ($c != null) && $from_form){
 			$posts = Spyc::YAMLload("posts.yaml");
 			$postid = count($posts)+1;
 			$posts[$postid]["date"] = $d;
