@@ -12,7 +12,7 @@
 		
 		$database = Spyc::YAMLload("hash.yaml");
 
-		if (isset($_SESSION['name'])) {
+		if (isset($_SESSION['name']) && ($u_New!=null) && (p_New!=null)) {
 			$u_New = $_POST['u_New'];
 			$p_New = $_POST['p_New'];	
 			
