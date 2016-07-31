@@ -13,10 +13,9 @@
 		$t = $_POST['time'];
 		$c = $_POST['content'];
 
-		if (isset($_SESSION['name'])){
+		if (isset($_SESSION['name']) && ($d != null) && ($t != null) && ($c != null)){
 			$posts = Spyc::YAMLload("posts.yaml");
 			$postid = count($posts)+1;
-			echo "<p>$d $t ---> $c</p><p>$user ---> $pass</p>";
 			$posts[$postid]["date"] = $d;
 			$posts[$postid]["time"] = $t;
 			$posts[$postid]["content"] = $c;
