@@ -4,6 +4,7 @@
 </head>
 <body>
 	<?php 
+		session_start();
 		header('Content-Type: text/html; charset=UTF-8');
 		
 		require_once('Spyc.php');
@@ -29,7 +30,7 @@
 			$posts[$postid]["time"] = $t;
 			$posts[$postid]["content"] = $c;
 			
-			$yaml = Spyc::YAMLDump($posts,12,PHP_INT_MAX);
+			$yaml = Spyc::YAMLDump($posts,2,PHP_INT_MAX);
 			$hfile = fopen("posts.yaml", 'w');
 			fwrite($hfile, $yaml);
 			
