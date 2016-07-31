@@ -10,11 +10,12 @@
 		require_once("Spyc.php");
 		require_once("salt.php");
 		
+		$u_New = $_POST['u_New'];
+		$p_New = $_POST['p_New'];	
+		
 		$database = Spyc::YAMLload("hash.yaml");
 
-		if (isset($_SESSION['name'])) {
-			$u_New = $_POST['u_New'];
-			$p_New = $_POST['p_New'];	
+		if (isset($_SESSION['name']) && ($u_New!=null) && (p_New!=null)) {
 			
 			if ($database[$u_New]["salt"]) {
 			}

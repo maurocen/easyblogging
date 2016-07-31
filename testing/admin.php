@@ -43,7 +43,7 @@
 					<p>Date: <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
 					<p>Time: <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
 					<p>Content: <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
-					
+					<input type=\"hidden\" name=\"from_form\" value=\"true\">
 					<p><input type=\"submit\" value=\"Add post\"></p>
 				</form>
 				<form action=\"add_user.php\" method=\"POST\">
@@ -51,6 +51,7 @@
 					<hr>
 					<p>New user: <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
 					<p>New pass: <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
+					<input type=\"hidden\" name=\"from_form\" value=\"true\">
 					<p><input type=\"submit\" value=\"Add user\"></p>
 				</form>";
 			} 
