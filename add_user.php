@@ -11,11 +11,10 @@
 		require_once("salt.php");
 		
 		$database = Spyc::YAMLload("hash.yaml");
-
-		$u_Admin = $_POST['u_Admin'];
-		$p_Admin = $_POST['p_Admin'];
 		
-		if (hash(sha512, $database[$u_Admin]["salt"].$p_Admin) == $database[$u_Admin]["hash"]) {
+		$from_form = $_POST['from_form'];
+
+		if (isset($_SESSION['name']) && ($u_New!=null) && (p_New!=null) && $from_form) {
 			$u_New = $_POST['u_New'];
 			$p_New = $_POST['p_New'];	
 			
@@ -32,7 +31,7 @@
 			fwrite($hfile, $yaml);
 		}
 		else {
-			header('Location: error.php');
+			header('Location: index.php');
 		}
 	?>
 </body>
