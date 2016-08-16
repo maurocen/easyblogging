@@ -12,7 +12,7 @@
     <title>mauro</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/blog-post.css" rel="stylesheet">
@@ -39,10 +39,34 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">mauro</a>
+                <a class="navbar-left title" href="index.php"><h2>mauro</h2></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse sr-only" id="bs-example-navbar-collapse-1">
+                <?php
+                    session_start();
+                    if (!isset($_SESSION['name'])) {
+                        echo "<h4>Login</h4>";
+                        echo '<div class="input-group">
+                            <form action="login.php" method="POST">
+                              <div class="form-group">
+                                <label for="u_name">Username</label>
+                                <input type="text" class="form-control" name="u_name" placeholder="Username">
+                              </div>
+                              <div class="form-group">
+                                <label for="u_pass">Password</label>
+                                <input type="password" class="form-control" name="u_pass" placeholder="Password">
+                              </div>
+                                <p></p><button type="submit" class="btn btn-default">Submit</button></p>
+                            </form>
+                        </div>';
+                    }
+                    else {
+                        echo "<p><h4>Hello, <i>".$_SESSION['name']."</i>.</h4><br>";
+                        echo "<a href='admin.php'>Go to admin panel</a><br>";
+                        echo "<a href='logout.php'>Logout</a></p>";
+                    }
+                ?>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -61,17 +85,41 @@
                 	$installed = true;
                 	$posts = Spyc::YAMLload("posts.yaml");
                 	$posts = array_reverse($posts);
+                	$config = Spyc::YAMLload("config.yaml");
 					//if ($installed) {
+					    if (isset($_GET["author"])) {
+					        echo "<h1>Showing posts by <i>".$_GET["author"]."</i><br><a href='index.php'>Go back</a>.</h1>";
+					    }
 						foreach ($posts as $a) {
-        					echo "<h1>".$a["title"]."</h1>";
-                            echo "<p class=\"lead\">";
-                            echo "by <i>".$a["author"]."</i>";
-                            echo "</p>";
-                            echo "<hr>";
-                            echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted on ".$a['date']." at ".$a['time']."</p>";
-                            echo "<hr>";
-                            echo $a['content'];
-                            echo "<hr>";
+						    if (!isset($_GET["author"])) {
+						        if ($config["title"] || $config["author"]) {
+    						        if($config["title"]) echo "<h2>".$a["title"]."</h2>";
+                                    if($config["author"]) echo "by <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i>";
+                                    echo "<hr>";
+						        }
+                                if($config["date"] || $config["time"]) {
+                                    echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted ";
+                                    if ($config["date"]) echo "on ".$a['date']." ";
+                                    if ($config["time"]) echo "at ".$a['time']."</p>";
+                                    echo "<hr>";
+                                }
+                                echo $a['content'];
+                                echo "<hr>";
+						    }
+						    else {
+						        if ($a["author"] == $_GET["author"]) {
+						            if($config["title"]) echo "<h2>".$a["title"]."</h2>"; 
+                                    if($config["author"]) echo "by <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
+                                    if($config["date"] || $config["time"]) {
+                                        echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted ";
+                                        if ($config["date"]) echo "on ".$a['date']." ";
+                                        if ($config["time"]) echo "at ".$a['time']."</p>";
+                                        echo "<hr>";
+                                    }
+                                    echo $a['content'];
+                                    echo "<hr>";
+						        }
+						    }
 						}
 				//	}
 				?>
@@ -84,7 +132,6 @@
                 
                 <div class="well">
                     <?php
-                        session_start();
                         if (!isset($_SESSION['name'])) {
                             echo "<h4>Login</h4>";
                             echo '<div class="input-group">
@@ -97,6 +144,7 @@
                                     <label for="u_pass">Password</label>
                                     <input type="password" class="form-control" name="u_pass" placeholder="Password">
                                   </div>
+                                  <hr>
                                     <p></p><button type="submit" class="btn btn-default">Submit</button></p>
                                 </form>
                             </div>';
