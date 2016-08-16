@@ -34,7 +34,7 @@
     <title>Admin panel</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/blog-post.css" rel="stylesheet">
@@ -61,7 +61,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Admin panel</a>
+                <a class="navbar-left title" href="#"><h2>Admin panel</h2></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -94,7 +94,7 @@
 						echo '</div>';
 						echo '<div id="addpost" class="panel-collapse collapse">';
 						echo "<div class=\"panel-body\">
-						<form action=\"add_post.php\" method=\"POST\">
+						<form action=\"resources/add_post.php\" method=\"POST\">
 							<p>Title: <input type=\"date\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>Date: <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>Time: <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
@@ -114,11 +114,40 @@
 						echo '</div>';
 						echo '<div id="adduser" class="panel-collapse collapse">';
 						echo "<div class=\"panel-body\">
-						<form action=\"add_user.php\" method=\"POST\">
+						<form action=\"resources/add_user.php\" method=\"POST\">
 							<p>New user: <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
 							<p>New pass: <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"Add user\"></p>
+						</form></div>";
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						echo '<div class="panel-group">';
+						echo '<div class="panel panel-default">';
+						echo '<div class="panel-heading">';
+						echo '<h4 class="panel-title">';
+						echo '<a data-toggle="collapse" href="#editconfig"><h3>Edit blog configuration</h3></a>';
+						echo '</h4>';
+						echo '</div>';
+						echo '<div id="editconfig" class="panel-collapse collapse">';
+						echo "<div class=\"panel-body\">
+						<form action=\"resources/edit_config.php\" method=\"POST\">
+							<p>Show post:</p>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Title\" checked>Title</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Date\" checked>Date</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Time\" checked>Time</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Author\" checked>Author</label>
+							</div>
+							<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"Change configuration\"></p>
 						</form></div>";
 						echo '</div>';
 						echo '</div>';

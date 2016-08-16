@@ -2,3 +2,9 @@
 mauro:
     salt: 'l)_uad5dY8LBj,G8f%Z?r9M/b&BI_m8^'
     hash: ab4865f025e7283d5ff713d66f9f0cc7f95f94bb29b277360edab9841ffd0e8655fb9c367f094f9c18a13676a6c89fdab7c504e054678afebed9fb8b1132405e
+maur0:
+    salt: 'D7MND$Zm!yopBkQ3*/MveS/2yIc.KW$/'
+    hash: c7bbe3193ad660e553fddf95844726ef01a18cb941ea2ae98c49c336d82a6d70b66b97c2047745b00d7eb43480fd6b28154df21953d9ea7072baafd59d6ab2ad
+juan:
+    salt: 'Q*_J2fb=R!PG((FkLmk8RVj+E&42+HBC'
+    hash: 394968c206bfd901a3a19b78c55d63f96bfac5e8c2d683d2a79382caaa123572a827f1b35f402402ba61598fd26a773f02cfb13626fc31e6c35d736980316885
