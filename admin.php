@@ -54,7 +54,7 @@
 	    <div class="container-fluid">
 	        <!-- Brand and toggle get grouped for better mobile display -->
 	        <div class="navbar-header">
-	            <a class="navbar-brand" href="index.php">mauro</a>
+	            <a class="navbar-brand" href="index.php">ADMIN</a>
 	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 	                <span class="sr-only">Toggle navigation</span>
 	                <span class="icon-bar"></span>
@@ -120,7 +120,7 @@
 						echo '<div id="addpost" class="panel-collapse collapse">';
 						echo "<div class=\"panel-body\">
 						<form action=\"resources/add_post.php\" method=\"POST\">
-							<p>Title: <input type=\"date\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>Title: <input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>Date: <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>Time: <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>Content: <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
