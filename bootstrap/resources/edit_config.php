@@ -39,6 +39,12 @@
 			else {
 				$config["author"] = false;
 			}
+			if (isset($_POST['p_Qty'])) {
+				$config["posts_qty"] = $_POST['p_Qty'];
+			}
+			else {
+				$config["posts_qty"] = 5;
+			}
 			
 			$hfile = fopen("../config.yaml", 'w');
 			$yaml = Spyc::YAMLdump($config,4,PHP_INT_MAX);
