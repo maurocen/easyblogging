@@ -184,7 +184,7 @@
 		<div class="col-md-12 well deux">
 			<div class="">
 				<?php
-					echo "<h4>Last posts</h4>";
+					echo "<h4>Latest posts</h4>";
 					$x = 0;
 					if (count($posts)>=$config["posts_qty"]) {
 						foreach ($posts as $a) {
