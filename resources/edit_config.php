@@ -45,6 +45,12 @@
 			else {
 				$config["posts_qty"] = 5;
 			}
+			if (isset($_POST['language'])) {
+				$config["lang"] = $_POST['language'];
+			}
+			else {
+				$config["lang"] = "en";
+			}
 			
 			$hfile = fopen("../config.yaml", 'w');
 			$yaml = Spyc::YAMLdump($config,4,PHP_INT_MAX);

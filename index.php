@@ -1,5 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php
+	require_once("Spyc.php"); 
+	$posts = Spyc::YAMLload("posts.yaml");
+	$posts = array_reverse($posts);
+	$config = Spyc::YAMLload("config.yaml");
+	$lang = $config["lang"];
+	require_once("resources/".$lang.".php");
+	$translation = translate();
+	echo "<html lang='".$lang."'>";
+?>
+
 
 <head>
 
@@ -9,7 +19,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title></title>
+	<title>mauro</title>
 
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -30,7 +40,7 @@
 
 <body>
 	<?php
-		$installed = false;
+		$installed = true;
 		if (!$installed) {
 			header('Location: install.php');
 		}
@@ -40,7 +50,7 @@
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.php"></a>
+				<a class="navbar-brand" href="index.php">mauro</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
@@ -91,24 +101,20 @@
 		<!-- Blog Post Content Column -->
 		<div class="col-lg-8">
 			<?php 
-				require_once("Spyc.php"); 
-				$posts = Spyc::YAMLload("posts.yaml");
-				$posts = array_reverse($posts);
-				$config = Spyc::YAMLload("config.yaml");
 				if (!empty($posts)) {
 					if (isset($_GET["author"])) {
-						echo "<h1>Showing posts by <i>".$_GET["author"]."</i><br><a href='index.php'>Go back</a>.</h1>";
+						echo "<h1>".$translation["Showing posts by"]." <i>".$_GET["author"]."</i><br><a href='index.php'>Go back</a>.</h1>";
 					}
 					foreach ($posts as $a) {
 						if (!isset($_GET["author"])) {
 							if (isset($_GET["title"])) {
 								if ($a["title"] == $_GET["title"]) {
 									if($config["title"]) echo "<h2>".$a["title"]."</h2>"; 
-									if($config["author"]) echo "by <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
+									if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
 									if($config["date"] || $config["time"]) {
-										echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted ";
-										if ($config["date"]) echo "on ".$a['date']." ";
-										if ($config["time"]) echo "at ".$a['time']."</p>";
+										echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
+										if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
+										if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
 										echo "<hr>";
 									}
 									echo $a['content'];
@@ -118,13 +124,13 @@
 							else {
 								if ($config["title"] || $config["author"]) {
 									if($config["title"]) echo "<h2>".$a["title"]."</h2>";
-									if($config["author"]) echo "by <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i>";
+									if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i>";
 									echo "<hr>";
 								}
 								if($config["date"] || $config["time"]) {
-									echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted ";
-									if ($config["date"]) echo "on ".$a['date']." ";
-									if ($config["time"]) echo "at ".$a['time']."</p>";
+									echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
+									if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
+									if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
 									echo "<hr>";
 								}
 								echo $a['content'];
@@ -133,11 +139,11 @@
 						}
 						else if ($a["author"] == $_GET["author"]) {
 							if($config["title"]) echo "<h2>".$a["title"]."</h2>"; 
-							if($config["author"]) echo "by <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
+							if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
 							if($config["date"] || $config["time"]) {
-								echo "<p><span class=\"glyphicon glyphicon-time\"></span> Posted ";
-								if ($config["date"]) echo "on ".$a['date']." ";
-								if ($config["time"]) echo "at ".$a['time']."</p>";
+								echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
+								if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
+								if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
 								echo "<hr>";
 							}
 							echo $a['content'];
@@ -146,7 +152,7 @@
 					}
 				}
 				else {
-				    echo '<h1>Nothing posted yet!</h1><p><a href="admin.php">Start posting</a></p>';
+				    echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="admin.php">'.$translation["Start posting"].'</a></p>';
 				}
 			?>
 		</div>
@@ -157,26 +163,26 @@
 				<div class="">
 					<?php
 						if (!isset($_SESSION['name'])) {
-							echo "<h4>Login</h4>";
+							echo "<h4>".$translation["Login"]."</h4>";
 							echo '<div class="input-group">
 							<form action="login.php" method="POST">
 								<div class="form-group">
-									<label for="u_name">Username</label>
-									<input type="text" class="form-control" name="u_name" placeholder="Username">
+									<label for="u_name">'.$translation["Username"].'</label>
+									<input type="text" class="form-control" name="u_name" placeholder="'.$translation["Username"].'">
 								</div>
 								<div class="form-group">
-									<label for="u_pass">Password</label>
-									<input type="password" class="form-control" name="u_pass" placeholder="Password">
+									<label for="u_pass">'.$translation["Password"].'</label>
+									<input type="password" class="form-control" name="u_pass" placeholder="'.$translation["Password"].'">
 								</div>
 								<hr>
-								<p></p><button type="submit" class="btn btn-default">Submit</button></p>
+								<p></p><button type="submit" class="btn btn-default">'.$translation["Submit"].'</button></p>
 							</form>
 						</div>';
 					}
 					else {
-						echo "<p><h4>Hello, <i>".$_SESSION['name']."</i>.</h4><br>";
-						echo "<a href='admin.php'>Go to admin panel</a><br>";
-						echo "<a href='logout.php'>Logout</a></p>";
+						echo "<p><h4>".$translation["Hello"].", <i>".$_SESSION['name']."</i>.</h4><br>";
+						echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a><br>";
+						echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
 					}
 				?>
 			</div>
@@ -184,7 +190,7 @@
 		<div class="col-md-12 well deux">
 			<div class="">
 				<?php
-					echo "<h4>Latest posts</h4>";
+					echo "<h4>".$translation["Latest posts"]."</h4>";
 					$x = 0;
 					if (count($posts)>=$config["posts_qty"]) {
 						foreach ($posts as $a) {

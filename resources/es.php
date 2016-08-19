@@ -1,0 +1,64 @@
+<?php
+    function translate() {
+        $translate["Hello"]="Hola";
+        $translate["Login"]="Iniciar sesión";
+        $translate["Showing posts by"]="Mostrando publicaciones de";
+        $translate["Logout"]="Cerrar sesión";
+        $translate["Go to admin panel"]="Ir al panel de administración";
+        $translate["Latest posts"]="Últimas publicaciones";
+        $translate["Posted"]="Publicado";
+        $translate["on"]="el";
+        $translate["at"]="a las";
+        $translate["by"]="por";
+        $translate["Add a new post"]="Agregar publicación";
+        $translate["Add a new user"]="Agregar un nuevo usuario";
+        $translate["Username"]="Nombre de usuario";
+        $translate["Password"]="Contraseña";
+        $translate["Title"]="Título";
+        $translate["Date"]="Fecha";
+        $translate["Time"]="Hora";
+        $translate["Content"]="Contenido";
+        $translate["Pass"]="Contraseña";
+        $translate["Pass again"]="Repetir contraseña";
+        $translate["Add post"]="Publicar";
+        $translate["Add user"]="Agregar usuario";
+        $translate["New user"]="Nuevo usuario";
+        $translate["New pass"]="Nueva contraseña";
+        $translate["Repeat pass"]="Repetir contraseña";
+        $translate["Edit blog configuration"]="Editar configuración del blog";
+        $translate["Show post"]="Información del post";
+        $translate["Author"]="Autor";
+        $translate["Last post to be shown in sidebar"]="Cantidad de posts a mostrar en barra lateral";
+        $translate["Change configuration"]="Cambiar configuración";
+        $translate["Passwords don't match."]="Las contraseñas no coinciden";
+        $translate["ADMIN"]="ADMINISTRACIÓN";
+        $translate["Nothing posted yet!"]="¡Aún no hay publicaciones!";
+        $translate["Start posting"]="Comienza a escribir";
+        $translate["Submit"]="Enviar";
+        $translate["Language"]="Idioma";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        $translate[""]="";
+        
+        return $translate;
+    }
+?>

@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php
+	require_once("Spyc.php"); 
+	$config = Spyc::YAMLload("config.yaml");
+	$lang = $config["lang"];
+	require_once("resources/".$lang.".php");
+	$translation = translate();
+	echo "<html lang='".$lang."'>";
+?>
 
 <head>
 
@@ -54,9 +61,9 @@
 	    <div class="container-fluid">
 	        <!-- Brand and toggle get grouped for better mobile display -->
 	        <div class="navbar-header">
-	            <a class="navbar-brand" href="index.php">ADMIN</a>
+	            <a class="navbar-brand" href="index.php"><?php echo $translation["ADMIN"];?></a>
 	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	                <span class="sr-only">Toggle navigation</span>
+	                <span class="sr-only"><?php echo $translation["Toggle navigation"];?></span>
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
@@ -69,25 +76,25 @@
 	                    <?php
 	                        session_start();
 	                        if (!isset($_SESSION['name'])) {
-	                            echo "<h4>Login</h4>";
+	                            echo "<h4>".$translation["Login"]."</h4>";
 	                            echo '<div class="input-group">
 	                                <form action="login.php" method="POST">
 	                                <div class="form-group">
-	                                <label for="u_name">Username</label>
+	                                <label for="u_name">'.$translation["Username"].'</label>
 	                                <input type="text" class="form-control" name="u_name" placeholder="Username">
 	                                </div>
 	                                <div class="form-group">
-	                                <label for="u_pass">Password</label>
-	                                <input type="password" class="form-control" name="u_pass" placeholder="Password">
+	                                <label for="u_pass">'.$translation["Password"].'</label>
+	                                <input type="password" class="form-control" name="u_pass" placeholder="'.$translation["Password"].'">
 	                                </div>
-	                                <p></p><button type="submit" class="btn btn-default">Submit</button></p>
+	                                <p></p><button type="submit" class="btn btn-default">'.$translation["Submit"].'</button></p>
 	                                </form>
 	                                </div>';
 	                        }
 	                        else {
-	                            echo "<p><h4>Hello, <i>".$_SESSION['name']."</i>.</h4><br>";
-	                            echo "<a href='admin.php'>Go to admin panel</a><br>";
-	                            echo "<a href='logout.php'>Logout</a></p>";
+	                            echo "<p><h4>".$translation["Hello"].", <i>".$_SESSION['name']."</i>.</h4><br>";
+	                            echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a><br>";
+	                            echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
 	                        }
 	                    ?>
 	                </div>
@@ -107,24 +114,24 @@
 					if (isset($_SESSION['name'])) {
 						
 						echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
-							<p align=\"center\"><input type=\"submit\" value=\"Logout\"></p>
+							<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
 						</form>";
 						echo '<div class="panel-group">';
 						echo '<div class="panel panel-default">';
 						echo '<div class="panel-heading">';
 						echo '<h4 class="panel-title">';
-						echo '<a data-toggle="collapse" href="#addpost"><h3>Add a new post</h3></a>';
+						echo '<a data-toggle="collapse" href="#addpost"><h3>'.$translation["Add a new post"].'</h3></a>';
 						echo '</h4>';
 						echo '</div>';
 						echo '<div id="addpost" class="panel-collapse collapse">';
 						echo "<div class=\"panel-body\">
 						<form action=\"resources/add_post.php\" method=\"POST\">
-							<p>Title: <input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
-							<p>Date: <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
-							<p>Time: <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
-							<p>Content: <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
+							<p>".$translation["Title"].": <input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Date"].": <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Time"].": <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Content"].": <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
-							<p><input type=\"submit\" value=\"Add post\"></p>
+							<p><input type=\"submit\" value=\"".$translation["Add post"]."\"></p>
 						</form></div>";
 						echo '</div>';
 						echo '</div>';
@@ -133,21 +140,21 @@
 						echo '<div class="panel panel-default">';
 						echo '<div class="panel-heading">';
 						echo '<h4 class="panel-title">';
-						echo '<a data-toggle="collapse" href="#adduser"><h3>Add a new user</h3></a>';
+						echo '<a data-toggle="collapse" href="#adduser"><h3>'.$translation["Add a new user"].'</h3></a>';
 						echo '</h4>';
 						echo '</div>';
 						echo '<div id="adduser" class="panel-collapse';
 						if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
 						else echo ' collapse">';
 						echo "<div class=\"panel-body\">";
-						if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>Passwords don't match.</b></p>";
+						if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>".$translation["Passwords don't match."]."</b></p>";
 						echo "
 						<form action=\"resources/add_user.php\" method=\"POST\">
-							<p>New user: <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
-							<p>New pass: <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
-							<p>Repeat pass: <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["New user"].": <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
+							<p>".$translation["New pass"].": <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Repeat pass"].": <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
-							<p><input type=\"submit\" value=\"Add user\"></p>
+							<p><input type=\"submit\" value=\"".$translation["Add user"]."\"></p>
 						</form></div>";
 						echo '</div>';
 						echo '</div>';
@@ -156,34 +163,40 @@
 						echo '<div class="panel panel-default">';
 						echo '<div class="panel-heading">';
 						echo '<h4 class="panel-title">';
-						echo '<a data-toggle="collapse" href="#editconfig"><h3>Edit blog configuration</h3></a>';
+						echo '<a data-toggle="collapse" href="#editconfig"><h3>'.$translation["Edit blog configuration"].'</h3></a>';
 						echo '</h4>';
 						echo '</div>';
 						echo '<div id="editconfig" class="panel-collapse collapse">';
 						echo "<div class=\"panel-body\">
 						<form action=\"resources/edit_config.php\" method=\"POST\">
-							<p>Show post:</p>
+							<p>".$translation["Show post"].":</p>
 							<div class=\"checkbox\">
-								<label><input type=\"checkbox\" value=\"\" name=\"p_Title\" checked>Title</label>
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Title\" checked>".$translation["Title"]."</label>
 							</div>
 							<div class=\"checkbox\">
-								<label><input type=\"checkbox\" value=\"\" name=\"p_Date\" checked>Date</label>
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Date\" checked>".$translation["Date"]."</label>
 							</div>
 							<div class=\"checkbox\">
-								<label><input type=\"checkbox\" value=\"\" name=\"p_Time\" checked>Time</label>
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Time\" checked>".$translation["Time"]."</label>
 							</div>
 							<div class=\"checkbox\">
-								<label><input type=\"checkbox\" value=\"\" name=\"p_Author\" checked>Author</label>
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Author\" checked>".$translation["Author"]."</label>
 							</div>
 							<div class=\"radio\">
 								<label><select name=\"p_Qty\">
 									<option value=\"3\">3</option>
 									<option value=\"5\">5</option>
 									<option value=\"10\">10</option>
-								</select> Last post to be shown in sidebar</label>
+								</select> ".$translation["Last post to be shown in sidebar"]."</label>
+							</div>
+								<div class=\"radio\">
+								<label><select name=\"language\">
+									<option value=\"en\">English</option>
+									<option value=\"es\">Español</option>
+								</select> ".$translation["Language"]."</label>
 							</div>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
-							<p><input type=\"submit\" value=\"Change configuration\"></p>
+							<p><input type=\"submit\" value=\"".$translation["Change configuration"]."\"></p>
 						</form></div>";
 						echo '</div>';
 						echo '</div>';
@@ -218,7 +231,7 @@
 						*/
 					}
 					else {
-						echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>User: <input type=\"text\" name=\"u_name\"> Password: <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"Login\"></p>	</form></div>";
+						echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>".$translation["User"].": <input type=\"text\" name=\"u_name\"> ".$translation["Password"].": <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"".$translation["Login"]."\"></p>	</form></div>";
 					}
 				?>
             </div>
