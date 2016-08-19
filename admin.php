@@ -104,7 +104,6 @@
             <!-- Blog Post Content Column -->
             <div class="col-lg-12">
 				<?php
-					session_start();
 					if (isset($_SESSION['name'])) {
 						
 						echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
@@ -137,11 +136,16 @@
 						echo '<a data-toggle="collapse" href="#adduser"><h3>Add a new user</h3></a>';
 						echo '</h4>';
 						echo '</div>';
-						echo '<div id="adduser" class="panel-collapse collapse">';
-						echo "<div class=\"panel-body\">
+						echo '<div id="adduser" class="panel-collapse';
+						if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
+						else echo ' collapse">';
+						echo "<div class=\"panel-body\">";
+						if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>Passwords don't match.</b></p>";
+						echo "
 						<form action=\"resources/add_user.php\" method=\"POST\">
 							<p>New user: <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
 							<p>New pass: <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>Repeat pass: <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"Add user\"></p>
 						</form></div>";
