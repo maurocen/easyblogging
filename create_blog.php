@@ -18,25 +18,24 @@
 	fwrite($hfile, $yaml);
 	$hfile = fopen("posts.yaml", 'w');
 	fwrite($hfile, "---");
-	
+	$hfile = fopen("config.yaml", 'w');
+	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"");
 	chmod("hash.yaml", 0640);
 	chmod("posts.yaml", 0640);
-	chmod("add_post.php", 0640);
-	chmod("add_user.php", 0640);
+	chmod("resources/add_post.php", 0640);
+	chmod("resources/add_user.php", 0640);
 	chmod("login.php", 0640);
 	chmod("logout.php", 0640);
 
 	$hfile = fopen("index.php", 'r');
 	$data = fread($hfile,filesize("index.php"));
-	$data = preg_replace("/<title><\/title>/", "<title>".$bname."</title>", $data);
-	$data = preg_replace("/<div class=\"header\"><h1 id=\"blogname\">/", "<div class=\"header\"><h1 id=\"blogname\">".$bname, $data);
-	$data = preg_replace("/<div class=\"content\">/", "<div class=\"content\">\n<h2 id=\"motto\"><i>".$bmotto."</i></h2>", $data);
+	$data = preg_replace("/<title>/", "<title>".$bname, $data);
+	$data = preg_replace('/<a class="navbar-brand" href="index.php">/', '<a class="navbar-brand" href="index.php">'.$bname, $data);
 	$data = preg_replace("/installed = false;/", "installed = true;", $data);
 	$hfile = fopen("index.php", 'w');
 	fwrite($hfile, $data);
-	unlink('install.php');
-	unlink('create_blog.php');
+	//unlink('install.php');
+	//unlink('create_blog.php');
 	echo 'Done.';
-	sleep('5');
 	header('Location: index.php');
 ?>
