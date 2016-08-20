@@ -43,7 +43,7 @@
 </head>
 
 <body>
-	
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
@@ -151,7 +151,7 @@
 					}
 				}
 				else {
-				    echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="admin.php">'.$translation["Start posting"].'</a></p>';
+					echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="admin.php">'.$translation["Start posting"].'</a></p>';
 				}
 			?>
 		</div>
@@ -177,15 +177,15 @@
 								<p></p><button type="submit" class="btn btn-default">'.$translation["Submit"].'</button></p>
 							</form>
 						</div>';
-					}
-					else {
-						echo "<p><h4>".$translation["Hello"].", <i>".$_SESSION['name']."</i>.</h4><br>";
-						echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a><br>";
-						echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
-					}
-				?>
-			</div>
-		</div>
+						}
+						else {
+							echo "<p><h4>".$translation["Hello"].", <i>".$_SESSION['name']."</i>.</h4><br>";
+							echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a><br>";
+							echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
+						}
+					?>
+				</div>
+			</div>		
 		<div class="col-md-12 well deux">
 			<div class="">
 				<?php
@@ -210,13 +210,11 @@
 						}
 					}
 				?>
-				<div>
-				</div>
 			</div>
-
 		</div>
-
 	</div>
+	</div>
+</div>
 	<!-- /.container -->
 
 	<!-- jQuery -->
