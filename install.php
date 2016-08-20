@@ -22,6 +22,7 @@
 			<p><label>Choose a username: <input type="text" name="user" required="TRUE" autocomplete="false" class="checkbox"></label></p>
 			<p><label>Choose a password: <input type="password" name="pass" required="true" autocomplete="false" class="checkbox"></label></p>
 			<p><label>Choose a name for your blog: <input type="text" name="blogname" required="true" autocomplete="false" class="checkbox"></label></p>
+			<p><label>Choose a language for your blog: <select name="lang"><option value="en">English</option><option value="es">Español</option></select></label></p>
 			<input type="submit" value="INSTALL"></form>
 		</form>
 	</div>

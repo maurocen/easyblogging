@@ -19,7 +19,8 @@
 	$hfile = fopen("posts.yaml", 'w');
 	fwrite($hfile, "---");
 	$hfile = fopen("config.yaml", 'w');
-	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"");
+	$lang = $_POST["lang"];
+	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang");
 	chmod("hash.yaml", 0640);
 	chmod("posts.yaml", 0640);
 	chmod("resources/add_post.php", 0640);

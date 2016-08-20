@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <?php
+	$installed = false;
+	if (!$installed) {
+		header('Location: install.php');
+	}
 	require_once("Spyc.php"); 
 	$posts = Spyc::YAMLload("posts.yaml");
 	$posts = array_reverse($posts);
@@ -19,7 +23,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>mauro</title>
+	<title></title>
 
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -39,18 +43,13 @@
 </head>
 
 <body>
-	<?php
-		$installed = true;
-		if (!$installed) {
-			header('Location: install.php');
-		}
-	?>
+	
 	<!-- Navigation -->
 	<nav class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.php">mauro</a>
+				<a class="navbar-brand" href="index.php"></a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
