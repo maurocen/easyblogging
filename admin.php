@@ -112,7 +112,7 @@
 		<div class="col-lg-12">
 			<?php
 				if (isset($_SESSION['name'])) {
-
+					//---------- ADD POST ----------//
 					echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
 					<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
 					</form>";
@@ -143,6 +143,7 @@
 					echo '<a data-toggle="collapse" href="#adduser"><h3>'.$translation["Add a new user"].'</h3></a>';
 					echo '</h4>';
 					echo '</div>';
+					//---------- ADD USER ----------//
 					echo '<div id="adduser" class="panel-collapse';
 					if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
 					else echo ' collapse">';
@@ -159,10 +160,12 @@
 					echo '</div>';
 					echo '</div>';
 					echo '</div>';
+					//---------- POST INFO ----------//
 					echo '<div class="panel-group">';
 					echo '<div class="panel panel-default">';
 					echo '<div class="panel-heading">';
 					echo '<h4 class="panel-title">';
+					$post = Spyc::YAMLload("config.yaml");
 					echo '<a data-toggle="collapse" href="#editconfig"><h3>'.$translation["Edit blog configuration"].'</h3></a>';
 					echo '</h4>';
 					echo '</div>';
@@ -171,28 +174,46 @@
 					<form action=\"resources/edit_config.php\" method=\"POST\">
 						<p>".$translation["Show post"].":</p>
 						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Title\" checked>".$translation["Title"]."</label>
+							<label><input type=\"checkbox\" value=\"\" name=\"p_Title\"";
+						if ($post["title"]) echo " checked";
+						echo ">".$translation["Title"]."</label>
 						</div>
 						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Date\" checked>".$translation["Date"]."</label>
+							<label><input type=\"checkbox\" value=\"\" name=\"p_Date\"";
+						if ($post["date"]) echo " checked";
+							echo ">".$translation["Date"]."</label>
 						</div>
 						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Time\" checked>".$translation["Time"]."</label>
+							<label><input type=\"checkbox\" value=\"\" name=\"p_Time\"";
+						if ($post["time"]) echo " checked";
+							echo ">".$translation["Time"]."</label>
 						</div>
 						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Author\" checked>".$translation["Author"]."</label>
+							<label><input type=\"checkbox\" value=\"\" name=\"p_Author\"";
+						if ($post["author"]) echo " checked";
+							echo ">".$translation["Author"]."</label>
 						</div>
 						<div class=\"radio\">
 							<label><select name=\"p_Qty\">
-								<option value=\"3\">3</option>
-								<option value=\"5\">5</option>
-								<option value=\"10\">10</option>
+								<option value=\"3\"";
+								if ($post["posts_qty"] == 3 ) echo " selected";
+								echo ">3</option>
+								<option value=\"5\"";
+								if ($post["posts_qty"] == 5 ) echo " selected";
+								echo ">5</option>
+								<option value=\"10\"";
+								if ($post["posts_qty"] == 10 ) echo " selected";
+								echo ">10</option>
 							</select> ".$translation["Last post to be shown in sidebar"]."</label>
 						</div>
 						<div class=\"radio\">
 							<label><select name=\"language\">
-								<option value=\"en\">English</option>
-								<option value=\"es\">Español</option>
+								<option value=\"en\"";
+								if ($post["lang"] == "en") echo " selected";
+								echo ">English</option>
+								<option value=\"es\"";
+								if ($post["lang"] == "es") echo " selected";
+								echo ">Español</option>
 							</select> ".$translation["Language"]."</label>
 						</div>
 						<input type=\"hidden\" name=\"from_form\" value=\"true\">
@@ -201,7 +222,7 @@
 					echo '</div>';
 					echo '</div>';
 					echo '</div>';
-					// Delete post
+					//---------- DELETE POST ----------//
 					/*echo '<div class="panel-group">';
 					echo '<div class="panel panel-default">';
 					echo '<div class="panel-heading">';
