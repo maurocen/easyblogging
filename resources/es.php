@@ -36,6 +36,8 @@
         $translate["Start posting"]="Comienza a escribir";
         $translate["Submit"]="Enviar";
         $translate["Language"]="Idioma";
+        $translate["Delete post"]="Eliminar publicación";
+        $translate["Choose post"]="Elija la publicación";
         $translate[""]="";
         $translate[""]="";
         $translate[""]="";
