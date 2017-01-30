@@ -61,9 +61,17 @@
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.php"><?php echo $translation["ADMIN"];?></a>
+				<a class="navbar-brand" href="index.php">
+					<?php 
+						echo $translation["ADMIN"];
+					?>
+				</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only"><?php echo $translation["Toggle navigation"];?></span>
+					<span class="sr-only">
+						<?php 
+							echo $translation["Toggle navigation"];
+						?>
+					</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -97,180 +105,181 @@
 							echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
 						}
 					?>
+				</div>
 			</div>
-		</div><!-- /.navbar-collapse -->
+		</div>
 	</div>
-</div><!-- /.container-fluid -->
-</nav>
+	</nav>
 
-<!-- Page Content -->
-<div class="container">
-
-	<div class="row">
-
-		<!-- Blog Post Content Column -->
-		<div class="col-lg-12">
-			<?php
-				if (isset($_SESSION['name'])) {
-					//---------- ADD POST ----------//
-					echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
-					<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
-					</form>";
-					echo '<div class="panel-group">';
-					echo '<div class="panel panel-default">';
-					echo '<div class="panel-heading">';
-					echo '<h4 class="panel-title">';
-					echo '<a data-toggle="collapse" href="#addpost"><h3>'.$translation["Add a new post"].'</h3></a>';
-					echo '</h4>';
-					echo '</div>';
-					echo '<div id="addpost" class="panel-collapse collapse">';
-					echo "<div class=\"panel-body\">
-					<form action=\"resources/add_post.php\" method=\"POST\">
-						<p>".$translation["Title"].": <input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Date"].": <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Time"].": <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Content"].": <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
-						<input type=\"hidden\" name=\"from_form\" value=\"true\">
-						<p><input type=\"submit\" value=\"".$translation["Add post"]."\"></p>
-					</form></div>";
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
-					echo '<div class="panel-group">';
-					echo '<div class="panel panel-default">';
-					echo '<div class="panel-heading">';
-					echo '<h4 class="panel-title">';
-					echo '<a data-toggle="collapse" href="#adduser"><h3>'.$translation["Add a new user"].'</h3></a>';
-					echo '</h4>';
-					echo '</div>';
-					//---------- ADD USER ----------//
-					echo '<div id="adduser" class="panel-collapse';
-					if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
-					else echo ' collapse">';
-					echo "<div class=\"panel-body\">";
-					if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>".$translation["Passwords don't match."]."</b></p>";
-					echo "
-					<form action=\"resources/add_user.php\" method=\"POST\">
-						<p>".$translation["New user"].": <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
-						<p>".$translation["New pass"].": <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Repeat pass"].": <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
-						<input type=\"hidden\" name=\"from_form\" value=\"true\">
-						<p><input type=\"submit\" value=\"".$translation["Add user"]."\"></p>
-					</form></div>";
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
-					//---------- POST INFO ----------//
-					echo '<div class="panel-group">';
-					echo '<div class="panel panel-default">';
-					echo '<div class="panel-heading">';
-					echo '<h4 class="panel-title">';
-					$post = Spyc::YAMLload("config.yaml");
-					echo '<a data-toggle="collapse" href="#editconfig"><h3>'.$translation["Edit blog configuration"].'</h3></a>';
-					echo '</h4>';
-					echo '</div>';
-					echo '<div id="editconfig" class="panel-collapse collapse">';
-					echo "<div class=\"panel-body\">
-					<form action=\"resources/edit_config.php\" method=\"POST\">
-						<p>".$translation["Show post"].":</p>
-						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Title\"";
-						if ($post["title"]) echo " checked";
-						echo ">".$translation["Title"]."</label>
-						</div>
-						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Date\"";
-						if ($post["date"]) echo " checked";
-							echo ">".$translation["Date"]."</label>
-						</div>
-						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Time\"";
-						if ($post["time"]) echo " checked";
-							echo ">".$translation["Time"]."</label>
-						</div>
-						<div class=\"checkbox\">
-							<label><input type=\"checkbox\" value=\"\" name=\"p_Author\"";
-						if ($post["author"]) echo " checked";
-							echo ">".$translation["Author"]."</label>
-						</div>
-						<div class=\"radio\">
-							<label><select name=\"p_Qty\">
-								<option value=\"3\"";
-								if ($post["posts_qty"] == 3 ) echo " selected";
-								echo ">3</option>
-								<option value=\"5\"";
-								if ($post["posts_qty"] == 5 ) echo " selected";
-								echo ">5</option>
-								<option value=\"10\"";
-								if ($post["posts_qty"] == 10 ) echo " selected";
-								echo ">10</option>
-							</select> ".$translation["Last post to be shown in sidebar"]."</label>
-						</div>
-						<div class=\"radio\">
-							<label><select name=\"language\">
-								<option value=\"en\"";
-								if ($post["lang"] == "en") echo " selected";
-								echo ">English</option>
-								<option value=\"es\"";
-								if ($post["lang"] == "es") echo " selected";
-								echo ">Español</option>
-							</select> ".$translation["Language"]."</label>
-						</div>
-						<input type=\"hidden\" name=\"from_form\" value=\"true\">
-						<p><input type=\"submit\" value=\"".$translation["Change configuration"]."\"></p>
-					</form></div>";
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
-					//---------- DELETE POST ----------//
-					/*echo '<div class="panel-group">';
-					echo '<div class="panel panel-default">';
-					echo '<div class="panel-heading">';
-					echo '<h4 class="panel-title">';
-					echo '<a data-toggle="collapse" href="#deletepost"><h3>Delete post</h3></a>';
-					echo '</h4>';
-					echo '</div>';
-					echo '<div id="deletepost" class="panel-collapse collapse">';
-					require_once("Spyc.php");
-					echo "<div class=\"panel-body\">
-					<form action=\"resources/remove_post.php\" method=\"POST\">
-					<p>Choose post:</p>";
-					$posts = Spyc::YAMLload("posts.yaml");
-					$posts = array_reverse($posts);
-					foreach($posts as $a) {
-					$as = $a["title"];
-					echo "<div class=\"checkbox\">
-					<label><input type=\"radio\" value=\"$as\" name=\"delete\"> ".$as."</label>
-					</div>";
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<?php
+					if (isset($_SESSION['name'])) {
+						//---------- LOGOUT BUTTON ----------//
+						echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
+						<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
+						</form>";
+						//---------- ADD POST ----------// Deprecated, now in create_post.php, keeping it for a while, deleting it in future versions.
+						
+						/*
+						echo '<div class="panel-group">';
+						echo '<div class="panel panel-default">';
+						echo '<div class="panel-heading">';
+						echo '<h4 class="panel-title">';
+						echo '<a data-toggle="collapse" href="#addpost"><h3>'.$translation["Add a new post"].'</h3></a>';
+						echo '</h4>';
+						echo '</div>';
+						echo '<div id="addpost" class="panel-collapse collapse">';
+						echo "<div class=\"panel-body\">
+						<form action=\"resources/add_post.php\" method=\"POST\">
+							<p>".$translation["Title"].": <input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Date"].": <input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Time"].": <input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Content"].": <textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\"></textarea></p>
+							<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Add post"]."\"></p>
+						</form></div>";
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						*/
+						
+						//---------- ADD USER ----------//
+						echo '<div class="panel-group">';
+						echo '<div class="panel panel-default">';
+						echo '<div class="panel-heading">';
+						echo '<h4 class="panel-title">';
+						echo '<a data-toggle="collapse" href="#adduser"><h3>'.$translation["Add a new user"].'</h3></a>';
+						echo '</h4>';
+						echo '</div>';
+						echo '<div id="adduser" class="panel-collapse';
+						if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
+						else echo ' collapse">';
+						echo "<div class=\"panel-body\">";
+						if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>".$translation["Passwords don't match."]."</b></p>";
+						echo "
+						<form action=\"resources/add_user.php\" method=\"POST\">
+							<p>".$translation["New user"].": <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
+							<p>".$translation["New pass"].": <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
+							<p>".$translation["Repeat pass"].": <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
+							<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Add user"]."\"></p>
+						</form></div>";
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						//---------- POST INFO ----------//
+						echo '<div class="panel-group">';
+						echo '<div class="panel panel-default">';
+						echo '<div class="panel-heading">';
+						echo '<h4 class="panel-title">';
+						$post = Spyc::YAMLload("config.yaml");
+						echo '<a data-toggle="collapse" href="#editconfig"><h3>'.$translation["Edit blog configuration"].'</h3></a>';
+						echo '</h4>';
+						echo '</div>';
+						echo '<div id="editconfig" class="panel-collapse collapse">';
+						echo "<div class=\"panel-body\">
+						<form action=\"resources/edit_config.php\" method=\"POST\">
+							<p>".$translation["Show post"].":</p>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Title\"";
+							if ($post["title"]) echo " checked";
+							echo ">".$translation["Title"]."</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Date\"";
+							if ($post["date"]) echo " checked";
+								echo ">".$translation["Date"]."</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Time\"";
+							if ($post["time"]) echo " checked";
+								echo ">".$translation["Time"]."</label>
+							</div>
+							<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"\" name=\"p_Author\"";
+							if ($post["author"]) echo " checked";
+								echo ">".$translation["Author"]."</label>
+							</div>
+							<div class=\"radio\">
+								<label><select name=\"p_Qty\">
+									<option value=\"3\"";
+									if ($post["posts_qty"] == 3 ) echo " selected";
+									echo ">3</option>
+									<option value=\"5\"";
+									if ($post["posts_qty"] == 5 ) echo " selected";
+									echo ">5</option>
+									<option value=\"10\"";
+									if ($post["posts_qty"] == 10 ) echo " selected";
+									echo ">10</option>
+								</select> ".$translation["Last post to be shown in sidebar"]."</label>
+							</div>
+							<div class=\"radio\">
+								<label><select name=\"language\">
+									<option value=\"en\"";
+									if ($post["lang"] == "en") echo " selected";
+									echo ">English</option>
+									<option value=\"es\"";
+									if ($post["lang"] == "es") echo " selected";
+									echo ">Español</option>
+								</select> ".$translation["Language"]."</label>
+							</div>
+							<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Change configuration"]."\"></p>
+						</form></div>";
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						//---------- DELETE POST ----------//
+						$posts = Spyc::YAMLload("posts.yaml");
+						if (count($posts) > 0) {
+							echo '<div class="panel-group">';
+							echo '<div class="panel panel-default">';
+							echo '<div class="panel-heading">';
+							echo '<h4 class="panel-title">';
+							echo '<a data-toggle="collapse" href="#deletepost"><h3>'.$translation["Delete post"].'</h3></a>';
+							echo '</h4>';
+							echo '</div>';
+							echo '<div id="deletepost" class="panel-collapse collapse">';
+							require_once("Spyc.php");
+							echo "<div class=\"panel-body\">
+							<form action=\"resources/remove_post.php\" method=\"POST\">
+							<p>".$translation["Choose post"].":</p>";
+							$posts = array_reverse($posts);
+							for($a = 0; $a <= count($posts)-1; $a++) {
+								$as = $posts[$a]["title"];
+								$at = $posts[$a]["postid"]; // Index to delete
+								echo "<div class=\"checkbox\">
+								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
+								</div>";
+							}
+							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Delete post"]."\"></p>
+							</form></div>";
+							echo '</div>';
+							echo '</div>';
+							echo '</div>';
+						}
+						
 					}
-					echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
-					<p><input type=\"submit\" value=\"Change configuration\"></p>
-					</form></div>";
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
+					else {
+						echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>".$translation["Username"].": <input type=\"text\" name=\"u_name\"> ".$translation["Password"].": <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"".$translation["Login"]."\"></p>	</form></div>";
+					}
+					
+					/*
+						All of these blocks are simple forms with the hidden from_form input for a little bit of security, the html consist of simple bootstrap
+						classes. I didn't write the html code, except for the forms.
 					*/
-				}
-				else {
-					echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>".$translation["Username"].": <input type=\"text\" name=\"u_name\"> ".$translation["Password"].": <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"".$translation["Login"]."\"></p>	</form></div>";
-				}
-			?>
-</div>
-
-</div>
-<!-- /.row -->
-
-<hr>
-
-</div>
-<!-- /.container -->
-
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
+				?>
+	</div>
+		</div>
+	
+	<hr>
+	
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
