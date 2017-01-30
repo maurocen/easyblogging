@@ -38,10 +38,11 @@
         $translate["Language"]="Language";
         $translate["Delete post"]="Delete post";
         $translate["Choose post"]="Choose post";
-        $translate[""]="";
-        $translate[""]="";
-        $translate[""]="";
-        $translate[""]="";
+        $translate["User already exists."]="User already exists.";
+        $translate["Writer"]="Writer";
+        $translate["Moderator"]="Moderator";
+        $translate["Administrator"]="Administrator";
+        $translate["User role"]="User role";
         $translate[""]="";
         $translate[""]="";
         $translate[""]="";
