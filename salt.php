@@ -8,4 +8,6 @@
 		}
 		return $randomString;
 	}
+	
+	// Pretty self-explanatory.
 ?>
