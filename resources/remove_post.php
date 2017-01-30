@@ -1,29 +1,23 @@
-<html>
-<head>
-	<meta charset="utf-8">
-</head>
-<body>
-	<?php 
-		session_start();
-		header('Content-Type: text/html; charset=UTF-8');
+<?php 
+	session_start();
+	header('Content-Type: text/html; charset=UTF-8');
+	
+	require_once('../Spyc.php');
+	if (isset($_POST["from_form"])) { // To delete a post you have to reach this code from the form in admin.php
+		$delete = $_POST["delete"];
+		$posts = Spyc::YAMLload("../posts.yaml");
 		
-		require_once('../Spyc.php');
-		if (isset($_POST["from_form"])) {
-			$asd = $_POST["delete"];
-			$posts = Spyc::YAMLload("../posts.yaml");
-			$x = 0;
-			while ($posts[$x]["title"] != $asd) {
-				$x++;
+		for ($i = 1; $i <= count($posts)+1; $i++) {	// This is ugly, but it's the only way I
+			if ($posts[$i]["postid"] == $delete) {	// got it to work properly, have to look
+				unset($posts[$i]);					// at it later.
 			}
-			array_splice($posts, $x, 1);
-			$yaml = Spyc::YAMLDump($posts,2,PHP_INT_MAX);
-			$hfile = fopen("../posts.yaml", 'w');
-			fwrite($hfile, $yaml);
-			header('Location: ../index.php');
 		}
-		else {
-			header('Location: ../index.php');
-		}
-	?>
-</body>
-</html>
+		$yaml = Spyc::YAMLDump($posts,2,PHP_INT_MAX);
+		$hfile = fopen("../posts.yaml", 'w');
+		fwrite($hfile, $yaml);
+		header('Location: ../index.php');
+	}
+	else {
+		header('Location: ../index.php');
+	}
+?>
