@@ -160,7 +160,7 @@
 					}
 				}
 				else {
-					echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="admin.php">'.$translation["Start posting"].'</a></p>';
+					echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="create_post.php">'.$translation["Start posting"].'</a></p>';
 				}
 			?>
 		</div>

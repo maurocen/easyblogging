@@ -12,8 +12,9 @@
 
 	$users[$user]["salt"] = $salt;	// Creating an association for user/salt
 	$users[$user]["hash"] = $hash;	// and user/hash, so it can be stored.
+	$users[$user]["role"] = 2;		// 2 = admin.
 	
-	$hfile = fopen("hash.yaml", 'w');				
+	$hfile = fopen("users.yaml", 'w');				
 	$yaml = Spyc::YAMLdump($users,4,PHP_INT_MAX);	
 	fwrite($hfile, $yaml);							
 	$hfile = fopen("posts.yaml", 'w');
@@ -22,7 +23,7 @@
 	$lang = $_POST["lang"];
 	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang\nbname: $bname\nbmotto: $bmotto");
 	
-	chmod("hash.yaml", 0640);					//
+	chmod("users.yaml", 0640);					//
 	chmod("posts.yaml", 0640);					// Changing permission of the files
 	chmod("resources/add_post.php", 0640);		// so not anybody can access them.
 	chmod("resources/add_user.php", 0640);		// 

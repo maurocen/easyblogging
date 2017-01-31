@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <?php
+	session_start();
 	require_once("Spyc.php"); 
 	$config = Spyc::YAMLload("config.yaml");
 	$lang = $config["lang"];
 	require_once("resources/".$lang.".php");
+	$users = Spyc::YAMLload("users.yaml");
+	$role = $_SESSION['role'];
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
+	if ($role != ('admin'||'mod')) {
+		header('Location: /index.php');
+	}
 ?>
 
 <head>
@@ -39,13 +45,23 @@
 </script>
 
 <title>
-	<?php
-		echo $translation["Add a new post"];
-	?>
+<?php
+	echo $translation["Manage posts"];
+?>
 </title>
 
+<!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom CSS -->
 <link href="css/blog-post.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 </head>
 
@@ -53,14 +69,19 @@
 
 	<nav class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<a class="navbar-brand" href="index.php">
-					<?php
-						echo $translation["Add a new post"];
+					<?php 
+						echo $translation["Manage posts"];
 					?>
 				</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only"><?php echo $translation["Toggle navigation"];?></span>
+					<span class="sr-only">
+						<?php 
+							echo $translation["Toggle navigation"];
+						?>
+					</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -94,61 +115,69 @@
 							echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
 						}
 					?>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-</nav>
+	</nav>
 
-<div class="container">
-
-	<div class="row">
-
-		<div class="col-lg-12">
-			<?php
-				if (isset($_SESSION['name'])) {
-					//---------- ADD POST ----------//
-					echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
-					<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
-					</form>";
-					echo '<div class="panel-group">';
-					echo '<div class="panel panel-default">';
-					echo '<div class="panel-heading">';
-					echo '<h4 class="panel-title">';
-					echo '<h3>'.$translation["Add a new post"].'</h3>';
-					echo '</h4>';
-					echo '</div>';
-					echo '<div class="panel">';
-					echo "<div class=\"panel-body\">
-					<form action=\"resources/add_post.php\" method=\"POST\">
-						<p>".$translation["Title"].":<br><input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Date"].":<br><input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Time"].":<br><input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Content"].":<br><textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\" required=\"true\"></textarea></p>
-						<input type=\"hidden\" name=\"from_form\" value=\"true\">
-						<p><input type=\"submit\" value=\"".$translation["Add post"]."\"></p>
-					</form></div>";
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<?php
+					if (isset($_SESSION['name'])) {
+						//---------- LOGOUT BUTTON ----------//
+						echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
+						<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
+						</form>";
+						//---------- DELETE POST ----------//
+						$posts = Spyc::YAMLload("posts.yaml");
+						if (count($posts) > 0) {	
+							echo '<div class="panel-group">';
+							echo '<div class="panel panel-default">';
+							echo '<div class="panel-heading">';
+							echo '<h4 class="panel-title">';
+							echo '<h3>'.$translation["Delete post"].'</h3>';
+							echo '</h4>';
+							echo '</div>';
+							echo '<div class="panel">';
+							require_once("Spyc.php");
+							echo "<div class=\"panel-body\">
+							<form action=\"resources/remove_post.php\" method=\"POST\">
+							<p>".$translation["Choose post"].":</p>";
+							$posts = array_reverse($posts);
+							for($a = 0; $a <= count($posts)-1; $a++) {
+								$as = $posts[$a]["title"];
+								$at = $posts[$a]["postid"]; // Index to delete
+								echo "<div class=\"checkbox\">
+								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
+								</div>";
+							}
+							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Delete post"]."\"></p>
+							</form></div>";
+							echo '</div>';
+							echo '</div>';
+							echo '</div>';
+						}
+					}
+					else {
+						echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>".$translation["Username"].": <input type=\"text\" name=\"u_name\"> ".$translation["Password"].": <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"".$translation["Login"]."\"></p>	</form></div>";
+					}
+					
 					/*
-						Nothing really important here, simple form with inputs for title, date, time and content. Also, a hidden input called from_form
-						to ensure a little bit of security, so not anybody can post simply by getting the add_post.php address.
+						All of these blocks are simple forms with the hidden from_form input for a little bit of security, the html consist of simple bootstrap
+						classes. I didn't write the html code, except for the forms.
 					*/
-				}
-			?>
-</div>
-
-</div>
-
-<hr> <!-- Irrelevant <hr> tag, keeping it for fun. -->
-
-</div>
-
-<script src="js/jquery.js"></script>
-
-<script src="js/bootstrap.min.js"></script>
-
+				?>
+	</div>
+		</div>
+	
+	<hr>
+	
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

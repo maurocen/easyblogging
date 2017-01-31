@@ -2,6 +2,7 @@
 		<div class="col-md-12 well deux">
 			<div class="">
 				<?php
+					$role = $_SESSION['role'];
 					if (!isset($_SESSION['name'])) {
 						echo "<h4>".$translation["Login"]."</h4>";
 						echo '<div class="input-group">
@@ -23,8 +24,14 @@
 						echo "<p><h4>".$translation["Hello"].", <i>".$_SESSION['name']."</i>.</h4><br>";
 						echo "<a href='create_post.php'>".$translation["Add a new post"]."</a>";
 						echo "<hr>";
-						echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a>";
-						echo "<hr>";
+						if ($role == 'admin') {
+							echo "<a href='admin.php'>".$translation["Go to admin panel"]."</a>";
+							echo "<hr>";
+						}
+						if ($role == ('admin'||'mod')) {
+							echo "<a href='manage_posts.php'>".$translation["Manage posts"]."</a>";
+							echo "<hr>";
+						}
 						echo "<a href='logout.php'>".$translation["Logout"]."</a></p>";
 					}
 				?>
