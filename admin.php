@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <?php
+	session_start();
 	require_once("Spyc.php"); 
 	$config = Spyc::YAMLload("config.yaml");
 	$lang = $config["lang"];
 	require_once("resources/".$lang.".php");
+	$users = Spyc::YAMLload("users.yaml");
+	$role = $_SESSION['role'];
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
+	if ($role != 'admin') {
+		header('Location: /index.php');
+	}
 ?>
 
 <head>
@@ -154,21 +160,64 @@
 						echo '</h4>';
 						echo '</div>';
 						echo '<div id="adduser" class="panel-collapse';
-						if (isset($_GET["error"]) && $_GET["error"]==1) echo ' collapse in">';
+						if (isset($_GET["error"])) echo ' collapse in">';
 						else echo ' collapse">';
 						echo "<div class=\"panel-body\">";
-						if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>".$translation["Passwords don't match."]."</b></p>";
+						if (isset($_GET["error"]) && $_GET["error"]==2) {
+							echo "<p style=\"color:#f00\"><b>".$translation["User already exists."]."</b></p>";
+						}
+						else {
+							if (isset($_GET["error"]) && $_GET["error"]==1) echo "<p style=\"color:#f00\"><b>".$translation["Passwords don't match."]."</b></p>";
+						}
 						echo "
 						<form action=\"resources/add_user.php\" method=\"POST\">
 							<p>".$translation["New user"].": <input type=\"text\" name=\"u_New\" autocomplete=\"false\" required=\"true\" /></p>
 							<p>".$translation["New pass"].": <input type=\"password\" name=\"p_New\" autocomplete=\"false\" required=\"true\"/></p>
 							<p>".$translation["Repeat pass"].": <input type=\"password\" name=\"p_New2\" autocomplete=\"false\" required=\"true\"/></p>
+							".$translation["User role"].":<br>
+							<div class=\"radio\">
+								<label><select name=\"r_New\">
+									<option value=\"writer\"";
+									echo ">".$translation["Writer"]."</option>
+									<option value=\"mod\"";
+									echo ">".$translation["Moderator"]."</option>
+									<option value=\"admin\"";
+									echo ">".$translation["Administrator"]."</option>
+								</select></label>
+							</div>
 							<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"".$translation["Add user"]."\"></p>
 						</form></div>";
 						echo '</div>';
 						echo '</div>';
 						echo '</div>';
+						//---------- REMOVE USER ----------//
+						$users = Spyc::YAMLload("users.yaml");
+						if (count($users) > 1) {	
+							echo '<div class="panel-group">';
+							echo '<div class="panel panel-default">';
+							echo '<div class="panel-heading">';
+							echo '<h4 class="panel-title">';
+							echo '<a data-toggle="collapse" href="#removeuser"><h3>'.$translation["Remove user"].'</h3></a>';
+							echo '</h4>';
+							echo '</div>';
+							echo '<div class="panel-collapse collapse" id="removeuser">';
+							echo "<div class=\"panel-body\">
+								<form action=\"resources/remove_user.php\" method=\"POST\">
+								<p>".$translation["Choose user"].":</p>";
+								foreach ($users as $a)
+									if (current($a) != $_SESSION['name']) {
+									echo "<div class=\"checkbox\">
+									<label><input type=\"radio\" value=\"".$a['name']."\" name=\"delete\"> ".$a['name']."</label>
+									</div>";
+									}
+							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\"></input>
+								<input type=\"submit\" value=\"".$translation["Remove user"]."\"></input>
+								</form></div>";
+							echo '</div>';
+							echo '</div>';
+							echo '</div>';
+						}
 						//---------- POST INFO ----------//
 						echo '<div class="panel-group">';
 						echo '<div class="panel panel-default">';
@@ -231,37 +280,6 @@
 						echo '</div>';
 						echo '</div>';
 						echo '</div>';
-						//---------- DELETE POST ----------//
-						$posts = Spyc::YAMLload("posts.yaml");
-						if (count($posts) > 0) {
-							echo '<div class="panel-group">';
-							echo '<div class="panel panel-default">';
-							echo '<div class="panel-heading">';
-							echo '<h4 class="panel-title">';
-							echo '<a data-toggle="collapse" href="#deletepost"><h3>'.$translation["Delete post"].'</h3></a>';
-							echo '</h4>';
-							echo '</div>';
-							echo '<div id="deletepost" class="panel-collapse collapse">';
-							require_once("Spyc.php");
-							echo "<div class=\"panel-body\">
-							<form action=\"resources/remove_post.php\" method=\"POST\">
-							<p>".$translation["Choose post"].":</p>";
-							$posts = array_reverse($posts);
-							for($a = 0; $a <= count($posts)-1; $a++) {
-								$as = $posts[$a]["title"];
-								$at = $posts[$a]["postid"]; // Index to delete
-								echo "<div class=\"checkbox\">
-								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
-								</div>";
-							}
-							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
-							<p><input type=\"submit\" value=\"".$translation["Delete post"]."\"></p>
-							</form></div>";
-							echo '</div>';
-							echo '</div>';
-							echo '</div>';
-						}
-						
 					}
 					else {
 						echo "<div class=\"container well\"><form action=\"login.php\" method=\"post\">\n<p>".$translation["Username"].": <input type=\"text\" name=\"u_name\"> ".$translation["Password"].": <input type=\"password\" name=\"u_pass\"> <input type=\"submit\" value=\"".$translation["Login"]."\"></p>	</form></div>";
