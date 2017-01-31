@@ -115,10 +115,10 @@
 					echo '<div class="panel panel-default">';
 					echo '<div class="panel-heading">';
 					echo '<h4 class="panel-title">';
-					echo '<a data-toggle="collapse" href="#addpost"><h3>'.$translation["Add a new post"].'</h3></a>';
+					echo '<h3>'.$translation["Add a new post"].'</h3>';
 					echo '</h4>';
 					echo '</div>';
-					echo '<div id="addpost" class="panel">';
+					echo '<div class="panel">';
 					echo "<div class=\"panel-body\">
 					<form action=\"resources/add_post.php\" method=\"POST\">
 						<p>".$translation["Title"].":<br><input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
