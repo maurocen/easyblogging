@@ -5,16 +5,14 @@
 	require_once('../Spyc.php');
 	if (isset($_POST["from_form"])) { // To delete a user you have to reach this code from the form in admin.php
 		if (isset($_POST['delete'])) {
-			if ($_POST['delete'] != $_SESSION['name']) {
+			if ($_POST['delete'] != $_SESSION['name']) {		// Can't delete current account.
 				$delete = $_POST["delete"];
 				$users = Spyc::YAMLload("../users.yaml");
-				echo 'deleting '.$delete."...\n";
 				
 				foreach ($users as $a) {
-					if  ($a['name'] == $delete) {
-						$key = array_search($a, $users);
-						echo 'deleted '.$a['name'];
-						unset($users[$key]);
+					if  ($a['name'] == $delete) {				// If gets a match on the account name
+						$key = array_search($a, $users);		// it searches the array key of the user
+						unset($users[$key]);					// and deletes it.
 					}
 				}
 				
