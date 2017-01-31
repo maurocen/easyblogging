@@ -43,9 +43,9 @@
         $translate["Moderator"]="Moderator";
         $translate["Administrator"]="Administrator";
         $translate["User role"]="User role";
-        $translate[""]="";
-        $translate[""]="";
-        $translate[""]="";
+        $translate["Manage posts"]="Manage posts";
+        $translate["Remove user"]="Remove user";
+        $translate["Choose user"]="Choose user";
         $translate[""]="";
         $translate[""]="";
         $translate[""]="";
