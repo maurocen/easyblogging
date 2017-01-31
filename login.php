@@ -5,13 +5,14 @@
     
     require_once('Spyc.php');
     
-    $database = Spyc::YAMLload('hash.yaml'); // Getting the passwords.
+    $database = Spyc::YAMLload('users.yaml'); // Getting the passwords.
     
     if (hash('sha512', $database[$u_name]['salt'].$u_pass) == $database[$u_name]['hash']) {
-        session_start();                    // 
-        $_SESSION['name'] = $u_name;        // If the combination is valid,
-        $_SESSION['login']= true;           // start a new session and redirect.
-        header('Location: index.php');      //
+        session_start();                                        // 
+        $_SESSION['name']   = $u_name;                          // If the combination is valid,
+        $_SESSION['login']  = true;                             // start a new session and redirect.
+        $_SESSION['role']   = $database[$u_name]['role'] ;      // Role of the session important for managing users and posts.
+        header('Location: index.php');                          //
         exit;
     }
     else {
