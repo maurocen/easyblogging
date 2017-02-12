@@ -2,7 +2,12 @@
 		<div class="col-md-12 well deux">
 			<div class="">
 				<?php
-					$role = $_SESSION['role'];
+					if (isset($_SESSION['role'])) {
+						$role = $_SESSION['role'];
+					}
+					else {
+						$role = 'guest';
+					}
 					if (!isset($_SESSION['name'])) {
 						echo "<h4>".$translation["Login"]."</h4>";
 						echo '<div class="input-group">

@@ -12,7 +12,7 @@
 
 	$users[$user]["salt"] = $salt;	// Creating an association for user/salt
 	$users[$user]["hash"] = $hash;	// and user/hash, so it can be stored.
-	$users[$user]["role"] = 2;		// 2 = admin.
+	$users[$user]["role"] = admin;
 	
 	$hfile = fopen("users.yaml", 'w');				
 	$yaml = Spyc::YAMLdump($users,4,PHP_INT_MAX);	
