@@ -10,7 +10,7 @@
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
 	if ($role != ('admin'||'mod')) {
-		header('Location: /index.php');
+		header('Location: ./index.php');
 	}
 ?>
 

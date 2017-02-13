@@ -10,7 +10,7 @@
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
 	if ($role != 'admin') {
-		header('Location: /index.php');
+		header('Location: ./index.php');
 	}
 ?>
 
@@ -206,10 +206,10 @@
 								<form action=\"resources/remove_user.php\" method=\"POST\">
 								<p>".$translation["Choose user"].":</p>";
 								foreach ($users as $a)
-									if (current($a) != $_SESSION['name']) {
-									echo "<div class=\"checkbox\">
-									<label><input type=\"radio\" value=\"".$a['name']."\" name=\"delete\"> ".$a['name']."</label>
-									</div>";
+									if ($a['salt'] != $users[$_SESSION['name']]['salt']) { // Check salt to make sure current user is not shown.
+										echo "<div class=\"checkbox\">
+										<label><input type=\"radio\" value=\"".$a['name']."\" name=\"delete\"> ".$a['name']."</label>
+										</div>";
 									}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\"></input>
 								<input type=\"submit\" value=\"".$translation["Remove user"]."\"></input>
