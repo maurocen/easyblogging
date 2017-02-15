@@ -46,7 +46,7 @@
         $translate["Manage posts"]="Manage posts";
         $translate["Remove user"]="Remove user";
         $translate["Choose user"]="Choose user";
-        $translate[""]="";
+        $translate["Edit post"]="Edit post";
         $translate[""]="";
         $translate[""]="";
         $translate[""]="";

@@ -8,12 +8,14 @@
 	function print_post($post) {
 
 		global $translation, $config;
+		global $edited;
+		$edited = $post["edited"];
 
 		if ($config["title"]) {
 			echo "<h2>".$post["title"]."</h2>";
 		}
 		if ($config["author"]) {
-			echo $translation["by"]." <i><a href='index.php?author=".$post["author"]."'>".$post["author"]."</a>";
+			echo $translation["by"]." <i><a href='index.php?author=".$post["author"]."'>".$post["author"]."</a></i>";
 		}
 		if ($config["date"] || $config["date"]) { 
 			echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
@@ -21,7 +23,11 @@
 				echo $translation["on"]." ".$post['date']." ";
 			}
 			if ($config["time"]) {
-				echo $translation["at"]." ".$post['time']."</p>";
+				echo $translation["at"]." ".$post['time'];
+				if ($edited) {
+					echo "\t<i>*</i>";
+				}
+				echo "</p>";
 			}
 			echo "<hr>";
 			echo $post["content"];

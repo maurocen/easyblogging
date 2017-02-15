@@ -137,10 +137,10 @@
 							echo '<div class="panel panel-default">';
 							echo '<div class="panel-heading">';
 							echo '<h4 class="panel-title">';
-							echo '<h3>'.$translation["Delete post"].'</h3>';
+							echo '<a data-toggle="collapse" href="#deletepost"><h3>'.$translation["Delete post"].'</h3></a>';
 							echo '</h4>';
 							echo '</div>';
-							echo '<div class="panel">';
+							echo '<div id="deletepost" class="panel collapse">';
 							require_once("Spyc.php");
 							echo "<div class=\"panel-body\">
 							<form action=\"resources/remove_post.php\" method=\"POST\">
@@ -155,6 +155,34 @@
 							}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"".$translation["Delete post"]."\"></p>
+							</form></div>";
+							echo '</div>';
+							echo '</div>';
+							echo '</div>';
+						}
+						if (count($posts) > 0) {	
+							echo '<div class="panel-group">';
+							echo '<div class="panel panel-default">';
+							echo '<div class="panel-heading">';
+							echo '<h4 class="panel-title">';
+							echo '<a data-toggle="collapse" href="#editpost"><h3>'.$translation["Edit post"].'</h3></a>';
+							echo '</h4>';
+							echo '</div>';
+							echo '<div id="editpost" class="panel collapse">';
+							require_once("Spyc.php");
+							echo "<div class=\"panel-body\">
+							<form action=\"./edit_post.php\" method=\"POST\">
+							<p>".$translation["Choose post"].":</p>";
+							$posts = array_reverse($posts);
+							for($a = 0; $a <= count($posts)-1; $a++) {
+								$as = $posts[$a]["title"];
+								$at = $posts[$a]["postid"]; // Index to edit
+								echo "<div class=\"checkbox\">
+								<label><input type=\"radio\" value=\"$at\" name=\"edit\"> ".$as."</label>
+								</div>";
+							}
+							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
+							<p><input type=\"submit\" value=\"".$translation["Edit post"]."\"></p>
 							</form></div>";
 							echo '</div>';
 							echo '</div>';
