@@ -138,17 +138,10 @@
 				}
 			?>
 </div>
-
 </div>
-
 <hr> <!-- Irrelevant <hr> tag, keeping it for fun. -->
-
 </div>
-
 <script src="js/jquery.js"></script>
-
 <script src="js/bootstrap.min.js"></script>
-
 </body>
-
 </html>
