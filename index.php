@@ -11,6 +11,7 @@
 	$lang = $config["lang"];
 	$bname = $config["bname"];
 	require_once("resources/".$lang.".php");
+	require_once("post_handling.php");
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
 ?>
@@ -110,54 +111,7 @@
 		<div class="col-lg-8">
 			<?php 
 				if (!empty($posts)) {
-					if (isset($_GET["author"])) {
-						echo "<h1>".$translation["Showing posts by"]." <i>".$_GET["author"]."</i><br><a href='index.php'>Go back</a>.</h1>";
-					}
-					foreach ($posts as $a) {
-						if (!isset($_GET["author"])) {
-							if (isset($_GET["title"])) {
-								if ($a["title"] == $_GET["title"]) {
-									if($config["title"]) echo "<h2>".$a["title"]."</h2>"; 
-									if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
-									if($config["date"] || $config["time"]) {
-										echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
-										if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
-										if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
-										echo "<hr>";
-									}
-									echo $a['content'];
-									echo "<hr>"; 
-								}
-							}
-							else {
-								if ($config["title"] || $config["author"]) {
-									if($config["title"]) echo "<h2>".$a["title"]."</h2>";
-									if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i>";
-									echo "<hr>";
-								}
-								if($config["date"] || $config["time"]) {
-									echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
-									if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
-									if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
-									echo "<hr>";
-								}
-								echo $a['content'];
-								echo "<hr>";
-							}
-						}
-						else if ($a["author"] == $_GET["author"]) {
-							if($config["title"]) echo "<h2>".$a["title"]."</h2>"; 
-							if($config["author"]) echo $translation["by"]." <i><a href='index.php?author=".$a["author"]."'>".$a["author"]."</a></i><hr>";
-							if($config["date"] || $config["time"]) {
-								echo "<p><span class=\"glyphicon glyphicon-time\"></span> ".$translation["Posted"]." ";
-								if ($config["date"]) echo $translation["on"]." ".$a['date']." ";
-								if ($config["time"]) echo $translation["at"]." ".$a['time']."</p>";
-								echo "<hr>";
-							}
-							echo $a['content'];
-							echo "<hr>";
-						}
-					}
+					print_posts($posts);
 				}
 				else {
 					echo '<h1>'.$translation["Nothing posted yet!"].'</h1><p><a href="create_post.php">'.$translation["Start posting"].'</a></p>';
