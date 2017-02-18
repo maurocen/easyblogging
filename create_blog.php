@@ -21,7 +21,8 @@
 	fwrite($hfile, "---\n");
 	$hfile = fopen("config.yaml", 'w');
 	$lang = $_POST["lang"];
-	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang\nbname: $bname\nbmotto: $bmotto");
+	$shift = $_POST["shift"];
+	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang\nbname: $bname\nbmotto: $bmotto\nshift: $shift");
 	
 	chmod("users.yaml", 0640);					//
 	chmod("posts.yaml", 0640);					// Changing permission of the files

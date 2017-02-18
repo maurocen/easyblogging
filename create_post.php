@@ -122,8 +122,6 @@
 					echo "<div class=\"panel-body\">
 					<form action=\"resources/add_post.php\" method=\"POST\">
 						<p>".$translation["Title"].":<br><input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Date"].":<br><input type=\"date\" name=\"date\" autocomplete=\"false\" required=\"true\"/></p>
-						<p>".$translation["Time"].":<br><input type=\"time\" name=\"time\" autocomplete=\"false\" required=\"true\"/></p>
 						<p>".$translation["Content"].":<br><textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\" required=\"true\"></textarea></p>
 						<input type=\"hidden\" name=\"from_form\" value=\"true\">
 						<p><input type=\"submit\" value=\"".$translation["Add post"]."\"></p>
