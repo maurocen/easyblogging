@@ -32,24 +32,6 @@
 				$("#confirm").prop("checked", true);
 			}
 		};
-
-		function confirm_delete() {
-			$ALL_is_checked = $('input[name="ALL[]"]:checked').length > 0;
-			$selected_option = ($("#title").serialize() != "");
-
-			if (!($ALL_is_checked || $selected_option)) {
-				$alert_text = "<?php echo $translation['Please select an option.']; ?>";
-				alert($alert_text);
-			}
-			else {
-				$text = "<?php echo $translation['Are you sure you want to delete the selected post? This process is irreversible.']; ?>";
-				$confirmation = confirm($text);
-				if ($confirmation) {
-					$.post( "./resources/remove_post.php", $( "#delete" ).serialize() );
-					window.location.replace("./index.php");
-				};
-			};
-		};
 	</script>
 <title>
 <?php
@@ -153,7 +135,7 @@
 							echo '<div id="deletepost" class="panel collapse">';
 							require_once("Spyc.php");
 							echo "<div class=\"panel-body\">
-							<form action=\"javascript:confirm_delete()\" method=\"POST\" id=\"delete\">
+							<form action=\"./resources/remove_post.php\" method=\"POST\">
 							<p>".$translation["Choose post"].":</p>";
 							$posts = array_reverse($posts);
 
@@ -167,7 +149,7 @@
 								$as = $posts[$a]["title"];
 								$at = $posts[$a]["postid"]; // Index to delete
 								echo "<div class=\"checkbox\">
-								<label><input type=\"radio\" value=\"$at\" name=\"delete\" id=\"title\"> ".$as."</label>
+								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
 								</div>";
 							}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
