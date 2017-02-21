@@ -29,6 +29,7 @@
 		$posts[$postid]["postid"] = $postid; // Setting the postid as an array value and a part of the structure is key to have consistency in the post id's.
 		$posts[$postid]["author"] = $_SESSION['name']; // This is non editable, the author is whoever is logged in.
 		$posts[$postid]["edited"] = false;
+		$posts[$postid]["hash"] = hash('crc32', $title.$date.$time.$gmt);
 		
 		$yaml = Spyc::YAMLDump($posts,2,PHP_INT_MAX);	// Dumping the posts info in the "database" may take considerably
 		$hfile = fopen("../posts.yaml", 'w');			// more time in the future, have to find a better way to store them,

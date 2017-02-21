@@ -21,29 +21,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<script>tinymce.init({
-		selector: 'textarea',
-		theme: 'modern',
-		plugins: [
-		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-		'searchreplace wordcount visualblocks visualchars code fullscreen',
-		'insertdatetime media nonbreaking save table contextmenu directionality',
-		'emoticons template paste textcolor colorpicker textpattern imagetools'
-		],
-		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-		toolbar2: 'print preview media | forecolor backcolor emoticons | code',
-		image_advtab: true,
-		templates: [
-		{ title: 'Test template 1', content: 'Test 1' },
-		{ title: 'Test template 2', content: 'Test 2' }
-		],
-		content_css: [
-		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-		'//www.tinymce.com/css/codepen.min.css'
-		]
-	});
-</script>
+	<script>
 
+		function confirm_delete_all() {
+			$var = confirm("This process is irreversible and will delete ALL your posts. Proceed at your own risk.");
+			if (!$var) {
+				$("#confirm").prop("checked", false);
+			}
+			else {
+				$("#confirm").prop("checked", true);
+			}
+		};
+
+		function confirm_delete() {
+			$ALL_is_checked = $('input[name="ALL[]"]:checked').length > 0;
+			$selected_option = ($("#title").serialize() != "");
+
+			if (!($ALL_is_checked || $selected_option)) {
+				$alert_text = "<?php echo $translation['Please select an option.']; ?>";
+				alert($alert_text);
+			}
+			else {
+				$text = "<?php echo $translation['Are you sure you want to delete the selected post? This process is irreversible.']; ?>";
+				$confirmation = confirm($text);
+				if ($confirmation) {
+					$.post( "./resources/remove_post.php", $( "#delete" ).serialize() );
+					window.location.replace("./index.php");
+				};
+			};
+		};
+	</script>
 <title>
 <?php
 	echo $translation["Manage posts"];
@@ -130,9 +137,12 @@
 						echo "<form action=\"logout.php\" method=\"POST\" style=\"border:0px; padding:0px;\">
 						<p align=\"center\"><input type=\"submit\" value=\"".$translation["Logout"]."\"></p>
 						</form>";
-						//---------- DELETE POST ----------//
+
 						$posts = Spyc::YAMLload("posts.yaml");
 						if (count($posts) > 0) {	
+
+						//---------- DELETE POST ----------//
+
 							echo '<div class="panel-group">';
 							echo '<div class="panel panel-default">';
 							echo '<div class="panel-heading">';
@@ -143,14 +153,21 @@
 							echo '<div id="deletepost" class="panel collapse">';
 							require_once("Spyc.php");
 							echo "<div class=\"panel-body\">
-							<form action=\"resources/remove_post.php\" method=\"POST\">
+							<form action=\"javascript:confirm_delete()\" method=\"POST\" id=\"delete\">
 							<p>".$translation["Choose post"].":</p>";
 							$posts = array_reverse($posts);
+
+							if ($posts != null) {
+							echo "<div class=\"checkbox\">
+								<label><input type=\"checkbox\" value=\"ALL\" name=\"ALL\" onclick=\"confirm_delete_all()\" id=\"confirm\"> <b>ALL POSTS</b></label>
+								</div>";
+							}
+
 							for($a = 0; $a <= count($posts)-1; $a++) {
 								$as = $posts[$a]["title"];
 								$at = $posts[$a]["postid"]; // Index to delete
 								echo "<div class=\"checkbox\">
-								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
+								<label><input type=\"radio\" value=\"$at\" name=\"delete\" id=\"title\"> ".$as."</label>
 								</div>";
 							}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
@@ -159,8 +176,9 @@
 							echo '</div>';
 							echo '</div>';
 							echo '</div>';
-						}
-						if (count($posts) > 0) {	
+
+					//---------- EDIT POST ----------//		
+
 							echo '<div class="panel-group">';
 							echo '<div class="panel panel-default">';
 							echo '<div class="panel-heading">';
@@ -173,7 +191,6 @@
 							echo "<div class=\"panel-body\">
 							<form action=\"./edit_post.php\" method=\"POST\">
 							<p>".$translation["Choose post"].":</p>";
-							$posts = array_reverse($posts);
 							for($a = 0; $a <= count($posts)-1; $a++) {
 								$as = $posts[$a]["title"];
 								$at = $posts[$a]["postid"]; // Index to edit
@@ -187,6 +204,9 @@
 							echo '</div>';
 							echo '</div>';
 							echo '</div>';
+						}
+						else {
+							header('Location: ./index.php');
 						}
 					}
 					else {

@@ -47,8 +47,8 @@
         $translate["Remove user"]="Remove user";
         $translate["Choose user"]="Choose user";
         $translate["Edit post"]="Edit post";
-        $translate[""]="";
-        $translate[""]="";
+        $translate["Are you sure you want to delete the selected post? This process is irreversible."]="Are you sure you want to delete the selected post? This process is irreversible.";
+        $translate["Please select an option."]="Please select an option.";
         $translate[""]="";
         $translate[""]="";
         $translate[""]="";

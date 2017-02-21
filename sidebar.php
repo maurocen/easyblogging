@@ -51,7 +51,7 @@
 					foreach ($posts as $a) {
 						if ($x<$config["posts_qty"]) {
 							$title2 = preg_replace("/\s/", "+", $a["title"]);
-							echo "<a href=\"index.php?title=".$title2."\">".$a["title"]."</a>";
+							echo "<a href=\"index.php?title=".$title2."&id=".$a["hash"]."\">".$a["title"]."</a>";
 							echo "<br>";
 							$x++;
 						}
@@ -60,7 +60,7 @@
 				else {
 					foreach ($posts as $a) {
 						$title2 = preg_replace("/\s/", "+", $a["title"]);
-						echo "<a href=\"index.php?title=".$title2."\">".$a["title"]."</a>";
+						echo "<a href=\"index.php?title=".$title2."&id=".$a["hash"]."\">".$a["title"]."</a>";
 						echo "<br>";
 						$x++;
 					}
