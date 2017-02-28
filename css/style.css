@@ -5,3 +5,15 @@
 .white-text {
     color: #fff;
 }
+
+input.button-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #337ab7;
+  background-color: transparent;
+}
+
+form.float {
+	display:inline;
+}

@@ -7,10 +7,11 @@
 	require_once("resources/".$lang.".php");
 	$users = Spyc::YAMLload("users.yaml");
 	$role = $_SESSION['role'];
+	$can_manage = (($role == "mod") || ($role == "admin"));
 	$translation = translate();
 	echo "<html lang='".$lang."'>";
-	if ($role != ('admin'||'mod')) {
-		header('Location: ./index.php');
+	if (!isset($_SESSION["name"])) {
+		header("Location: ./index.php");
 	}
 ?>
 
@@ -139,18 +140,24 @@
 							<p>".$translation["Choose post"].":</p>";
 							$posts = array_reverse($posts);
 
-							if ($posts != null) {
-							echo "<div class=\"checkbox\">
-								<label><input type=\"checkbox\" value=\"ALL\" name=\"ALL\" onclick=\"confirm_delete_all()\" id=\"confirm\"> <b>ALL POSTS</b></label>
-								</div>";
+							echo $can_manage;
+
+							if ($can_manage) {
+								if ($posts != null) {
+								echo "<div class=\"checkbox\">
+									<label><input type=\"checkbox\" value=\"ALL\" name=\"ALL\" onclick=\"confirm_delete_all()\" id=\"confirm\"> <b>ALL POSTS</b></label>
+									</div>";
+								}
 							}
 
 							for($a = 0; $a <= count($posts)-1; $a++) {
 								$as = $posts[$a]["title"];
 								$at = $posts[$a]["postid"]; // Index to delete
-								echo "<div class=\"checkbox\">
-								<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
-								</div>";
+								if ($can_manage || ($posts[$a]["author"] == $_SESSION["name"])) {
+									echo "<div class=\"checkbox\">
+									<label><input type=\"radio\" value=\"$at\" name=\"delete\"> ".$as."</label>
+									</div>";
+								}
 							}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"".$translation["Delete post"]."\"></p>
@@ -176,9 +183,11 @@
 							for($a = 0; $a <= count($posts)-1; $a++) {
 								$as = $posts[$a]["title"];
 								$at = $posts[$a]["postid"]; // Index to edit
-								echo "<div class=\"checkbox\">
-								<label><input type=\"radio\" value=\"$at\" name=\"edit\"> ".$as."</label>
-								</div>";
+								if ($can_manage || ($posts[$a]["author"] == $_SESSION["name"])) {
+									echo "<div class=\"checkbox\">
+									<label><input type=\"radio\" value=\"$at\" name=\"edit\"> ".$as."</label>
+									</div>";
+								}
 							}
 							echo "<input type=\"hidden\" name=\"from_form\" value=\"true\">
 							<p><input type=\"submit\" value=\"".$translation["Edit post"]."\"></p>
