@@ -4,7 +4,7 @@
 	if (!$installed) {
 		header('Location: install.php');
 	}
-	require_once("Spyc.php"); 
+	require_once("Spyc.php");
 	$posts = Spyc::YAMLload("posts.yaml");
 	$posts = array_reverse($posts);
 	$config = Spyc::YAMLload("config.yaml");
@@ -109,7 +109,7 @@
 
 		<!-- Blog Post Content Column -->
 		<div class="col-lg-8">
-			<?php 
+			<?php
 				if (!empty($posts)) {
 					print_posts($posts);
 				}
