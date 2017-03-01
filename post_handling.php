@@ -31,8 +31,6 @@
 	function print_post($post) {
 
 		global $translation, $config;
-		global $edited;
-		$edited = $post["edited"];
 
 		if ($config["title"]) {
 			echo "<h2>".$post["title"]."</h2>";
@@ -48,8 +46,8 @@
 			}
 			if ($config["time"]) {
 				echo $translation["at"]." ".$post['time'];
-				if ($edited) {
-					echo "\t<i>*</i>";
+				if (isset($post["edited"])) {
+					echo "\t<div class=\"edit-hover\"><i class>*</i><div class=\"hover-text\"> ".$translation["Last edited"].": ".$post["edited"]."</div></div>";
 				}
 			}
 			print_manage_links($post);

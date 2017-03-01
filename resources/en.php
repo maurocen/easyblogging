@@ -21,6 +21,7 @@
         $translate["Go to admin panel"]="Go to admin panel";
         $translate["Hello"]="Hello";
         $translate["Language"]="Language";
+        $translate["Last edited"]="Last edited";
         $translate["Last post to be shown in sidebar"]="Last post to be shown in sidebar";
         $translate["Latest posts"]="Latest posts";
         $translate["Login"]="Login";

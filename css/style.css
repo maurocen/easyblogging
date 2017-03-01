@@ -17,3 +17,15 @@ input.button-link {
 form.float {
 	display:inline;
 }
+
+.edit-hover {
+    display: inline;
+}
+
+.edit-hover .hover-text {
+    display:none;
+}
+
+.edit-hover:hover .hover-text {
+    display: inline;
+}
