@@ -23,6 +23,18 @@
 			<p><label>Choose a password: <input type="password" name="pass" required="true" autocomplete="false" class="checkbox"></label></p>
 			<p><label>Choose a name for your blog: <input type="text" name="blogname" required="true" autocomplete="false" class="checkbox"></label></p>
 			<p><label>Choose a language for your blog: <select name="lang"><option value="en">English</option><option value="es">Español</option></select></label></p>
+			<p><label>
+				<select name="date_format">
+					<option value="d-m-y">dd-mm-yyyy</option>
+					<option value="d-m">dd-mm</option>
+					<option value="m-d-y">mm-dd-yyyy</option>
+					<option value="m-d">mm-dd</option>
+					<option value="d/m/y">dd/mm/yyyy</option>
+					<option value="d/m">dd/mm</option>
+					<option value="m/d/y">mm/dd/yyyy</option>
+					<option value="m/d">mm/dd</option>
+				</select>
+			</label></p>
 			<p><label>Choose your local timezone:
 				<select name="shift">
 					<option value="-12">(UTC-12:00) International Date Line West</option>

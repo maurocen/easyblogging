@@ -6,16 +6,16 @@
     color: #fff;
 }
 
-input.button-link {
-  margin: 0;
+.post-title {
+    display: inline;
+}
+
+.button-link {
   padding: 0;
   border: none;
   color: #337ab7;
   background-color: transparent;
-}
-
-form.float {
-	display:inline;
+  display: inline;
 }
 
 .edit-hover {
@@ -28,4 +28,16 @@ form.float {
 
 .edit-hover:hover .hover-text {
     display: inline;
+}
+
+.title-hover form {
+    display: none;
+}
+
+.title-hover:hover form {
+    display: inline;
+}
+
+.title-hover.hidden-text {
+    display: none;
 }

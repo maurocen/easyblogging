@@ -43,7 +43,7 @@
 
 <title>
 	<?php
-		echo $translation["Add a new post"];
+		echo $posts[$index]["title"].": ".$translation["Edit post"];
 	?>
 </title>
 
@@ -125,8 +125,6 @@
 					echo "<div class=\"panel-body\">
 					<form action=\"resources/edit_post.php\" method=\"POST\">
 						<p>".$translation["Title"].":<br><input type=\"text\" name=\"title\" autocomplete=\"false\" required=\"true\" value=\"".$post["title"]."\"/></p>
-						<input type=\"hidden\" name=\"date\" autocomplete=\"false\" required=\"true\" value=\"".$post["date"]."\"/>
-						<input type=\"hidden\" name=\"time\" autocomplete=\"false\" required=\"true\" value=\"".$post["time"]."\"/>
 						<p>".$translation["Content"].":<br><textarea rows=\"8\" cols=\"70\" name=\"content\" autocomplete=\"false\" required=\"true\">".$post["content"]."</textarea></p>
 						<input type=\"hidden\" name=\"from_form\" value=\"true\">
 						<input type=\"hidden\" name=\"postid\" value=\"".$index."\">

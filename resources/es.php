@@ -26,6 +26,7 @@
         $translate["Latest posts"]="Últimas publicaciones";
         $translate["Login"]="Iniciar sesión";
         $translate["Logout"]="Cerrar sesión";
+        $translate["Manage post"]="Administrar publicación";
         $translate["Manage posts"]="Administrar publicaciones";
         $translate["Moderator"]="Moderador";
         $translate["New pass"]="Nueva contraseña";

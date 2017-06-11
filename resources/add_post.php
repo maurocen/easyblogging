@@ -12,19 +12,16 @@
 		$posts = Spyc::YAMLload("../posts.yaml");
 		$config = Spyc::YAMLload("../config.yaml");
 
-		$gmt = gmdate("Y/m/d H:i:s");
-		$gmt = strtotime($gmt);
-		$local = $gmt+($config["shift"]*60*60);
-
-		$date = date("d/m/y", $local);
-		$time = date("H:i", $local);
-
+		$gmt  = gmdate("Y/m/d H:i:s");
+		$gmt  = strtotime($gmt);
+		$gmt += $config["shift"];
+		
+		
 		$reverse = array_reverse($posts);																			// This is the only way I got it to work,
 		$postid = isset($reverse[0]["postid"])? $reverse[0]["postid"]+1 : 1;	// have to find a more efficient way.
 
 		$posts[$postid]["title"] = $title;
-		$posts[$postid]["date"] = $date;
-		$posts[$postid]["time"] = $time;
+		$posts[$postid]["posted"] = $gmt;
 		$posts[$postid]["content"] = $c;
 		$posts[$postid]["postid"] = $postid; // Setting the postid as an array value and a part of the structure is key to have consistency in the post id's.
 		$posts[$postid]["author"] = $_SESSION['name']; // This is non editable, the author is whoever is logged in.

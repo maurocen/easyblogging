@@ -26,6 +26,7 @@
         $translate["Latest posts"]="Latest posts";
         $translate["Login"]="Login";
         $translate["Logout"]="Logout";
+        $translate["Manage post"]="Manage post";
         $translate["Manage posts"]="Manage posts";
         $translate["Moderator"]="Moderator";
         $translate["New pass"]="New pass";
