@@ -87,7 +87,7 @@
 		if (isset($_GET["author"])) {
 			echo "<h1>".$translation["Showing posts by"]." <i>".$_GET["author"]."</i><br><a href='index.php'>Go back</a>.</h1>";
 		}
-
+		// Comment.
 		foreach ($posts as $post) {
 			if (isset($_GET["author"])) {
 				if ($post["author"] == $_GET["author"]) {
