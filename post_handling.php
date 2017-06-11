@@ -107,4 +107,5 @@
 		}
 	}
 	// Comment line for testing purposes.
+	// Another comment line.
 ?>
