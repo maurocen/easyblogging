@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-	$installed = true;
+	$installed = false;
 	if (!$installed) {
 		header('Location: install.php');
 	}
