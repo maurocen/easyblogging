@@ -4,16 +4,18 @@
 	if (!$installed) {
 		header('Location: install.php');
 	}
-	require_once("Spyc.php");
-	$posts = Spyc::YAMLload("posts.yaml");
-	$posts = array_reverse($posts);
-	$config = Spyc::YAMLload("config.yaml");
-	$lang = $config["lang"];
-	$bname = $config["bname"];
-	require_once("resources/".$lang.".php");
-	require_once("post_handling.php");
-	$translation = translate();
-	echo "<html lang='".$lang."'>";
+	else {
+		require_once("Spyc.php");
+		$posts = Spyc::YAMLload("posts.yaml");
+		$posts = array_reverse($posts);
+		$config = Spyc::YAMLload("config.yaml");
+		$lang = $config["lang"];
+		$bname = $config["bname"];
+		require_once("resources/".$lang.".php");
+		require_once("post_handling.php");
+		$translation = translate();
+		echo "<html lang='".$lang."'>";
+	}
 ?>
 
 
