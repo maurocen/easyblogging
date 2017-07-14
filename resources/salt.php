@@ -2,7 +2,7 @@
 	function salt($quantity) {
 		$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_=+/?.,!#$%^&*()';
 		$charlength = strlen($characters);
-		$rstring = '';
+		$randomString = '';
 		for ($i=0; $i<$quantity ; $i++) {
 			$randomString .= $characters[rand(0, $charlength - 1)];
 		}

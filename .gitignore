@@ -3,3 +3,5 @@ config.yaml
 hash.yaml
 posts.yaml
 users.yaml
+resources/test.php
+data/*

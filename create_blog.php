@@ -6,17 +6,10 @@
 	$pass = $_POST["pass"];			// Getting all the information of the
 	$bname = $_POST["blogname"];	// user, and also blog name and motto
 	$bmotto = $_POST["bmotto"];		// (motto currently unused)
-	$salt = salt(128);					// Getting random salt for hashing.
 
-	$hash = hash(sha512, $salt.$pass); // Hashing the password.
+	User_db::getInstance()->add_user(new User($user, $pass), "Admin");
 
-	$users[$user]["salt"] = $salt;	// Creating an association for user/salt
-	$users[$user]["hash"] = $hash;	// and user/hash, so it can be stored.
-	$users[$user]["role"] = admin;
 
-	$hfile = fopen("users.yaml", 'w');
-	$yaml = Spyc::YAMLdump($users,4,PHP_INT_MAX);
-	fwrite($hfile, $yaml);
 	$hfile = fopen("posts.yaml", 'w');
 	fwrite($hfile, "---\n");
 	$hfile = fopen("config.yaml", 'w');
