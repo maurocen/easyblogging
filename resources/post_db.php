@@ -2,7 +2,7 @@
 
 include_once('./post.php');
 
-class post_db {
+class Post_db {
     private static $instance;
     private $posts;
 
@@ -28,7 +28,7 @@ class post_db {
 
     public function getInstance() {
         if (!isset(self::$instance)) {
-            self::$instance = new post_db;
+            self::$instance = new Post_db;
         }
         return self::$instance;
     }

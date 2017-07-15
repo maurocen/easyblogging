@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-	$installed = false;
-	if (filesize("../data/users.json") == 0) {
+	$installed = true;
+	if (filesize("../data/blog.json") == 0) {
 		header('Location: install.php');
 	}
 	else {

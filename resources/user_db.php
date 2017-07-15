@@ -1,17 +1,20 @@
 <?php
 
-class user_db {
+class User_db {
     private static $instance;
     private $users;
     private $role;
 
+    private function __construct() {
+    }
+
     public function getInstance() {
         if (!isset(self::$instance)) {
-            self::$instance = new user_db;
-            touch('../data/users.json');
+            self::$instance = new User_db;
+            touch('./data/users.json');
             try {
-                if (filesize("../data/users.json") != 0) {
-                  self::$instance = unserialize(file_get_contents("../data/users.json"));
+                if (filesize("./data/users.json") != 0) {
+                  self::$instance = unserialize(file_get_contents("./data/users.json"));
                 }
             }
             catch(Exception $e) {
@@ -28,7 +31,7 @@ class user_db {
         else {
             $this->users[$user->getName()] = $user;
             $this->role[$user->getName()] = $role;
-            $file = fopen('../data/users.json', 'w+');
+            $file = fopen('./data/users.json', 'w+');
             $data = serialize(self::$instance);
             fwrite($file, $data);
         }

@@ -1,11 +1,13 @@
 <?php
 	require_once("Spyc.php");
-	require_once("salt.php");
+	require_once("./resources/salt.php");
+	require_once("./resources/User_db.php");
+	require_once("./resources/User.php");
 
 	$user = $_POST["user"];			//
 	$pass = $_POST["pass"];			// Getting all the information of the
 	$bname = $_POST["blogname"];	// user, and also blog name and motto
-	$bmotto = $_POST["bmotto"];		// (motto currently unused)
+	//$bmotto = $_POST["bmotto"];		// (motto currently unused)
 
 	User_db::getInstance()->add_user(new User($user, $pass), "Admin");
 
@@ -16,7 +18,7 @@
 	$lang = $_POST["lang"];
 	$shift = $_POST["shift"];
 	$date_format = $_POST["date_format"];
-	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang\nbname: $bname\nbmotto: $bmotto\nshift: $shift\ndate_format: $date_format");
+	fwrite($hfile, "---\ntitle: true\ndate: true\ntime: true\nauthor: true\nposts_qty: \"3\"\nlang: $lang\nbname: $bname\nshift: $shift\ndate_format: $date_format");
 
 	chmod("users.yaml", 0640);					//
 	chmod("posts.yaml", 0640);					// Changing permission of the files
